@@ -1,0 +1,21 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
+import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { LayoutModule } from '@angular/cdk/layout';
+import {UserRoutingModule} from './user-routing.module';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    UserRoutingModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    LayoutModule
+  ],
+  declarations: [UserDashboardComponent]
+})
+export class UserModule { }
