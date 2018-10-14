@@ -12,10 +12,6 @@ const routes: Routes = [
     loadChildren: 'src/app/user/user.module#UserModule',
   },
   {
-    path: 'admin',
-    loadChildren: 'src/app/admin/admin.module#AdminModule',
-  },
-  {
     path: '**',
     redirectTo: 'user',
   },
