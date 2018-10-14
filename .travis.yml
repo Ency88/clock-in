@@ -1,0 +1,15 @@
+#.travis.yml
+
+language: node_js
+node_js:
+- "9"
+
+branches:
+  only:
+  - /.*/
+
+before_script:
+- npm install -g @angular/cli
+
+script:
+- npm run pullrequest-check
