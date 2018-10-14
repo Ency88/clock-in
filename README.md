@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Ency88/clock-in.svg?branch=master)](https://travis-ci.org/Ency88/clock-in)
+
 # ClockIn
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.3.
