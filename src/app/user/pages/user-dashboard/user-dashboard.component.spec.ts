@@ -1,4 +1,3 @@
-
 import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserDashboardComponent } from './user-dashboard.component';
@@ -9,9 +8,8 @@ describe('UserDashboardComponent', () => {
 
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserDashboardComponent ]
-    })
-    .compileComponents();
+      declarations: [UserDashboardComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(UserDashboardComponent);
     component = fixture.componentInstance;

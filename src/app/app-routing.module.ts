@@ -5,24 +5,24 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'user',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'user',
-    loadChildren: 'src/app/user/user.module#UserModule'
+    loadChildren: 'src/app/user/user.module#UserModule',
   },
   {
     path: 'admin',
-    loadChildren: 'src/app/admin/admin.module#AdminModule'
+    loadChildren: 'src/app/admin/admin.module#AdminModule',
   },
   {
     path: '**',
-    redirectTo: 'user'
-  }
+    redirectTo: 'user',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

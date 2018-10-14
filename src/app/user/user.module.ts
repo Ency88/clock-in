@@ -1,9 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
+import {
+  MatGridListModule,
+  MatCardModule,
+  MatMenuModule,
+  MatIconModule,
+  MatButtonModule,
+} from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
-import {UserRoutingModule} from './user-routing.module';
+import { UserRoutingModule } from './user-routing.module';
 
 @NgModule({
   imports: [
@@ -14,8 +20,8 @@ import {UserRoutingModule} from './user-routing.module';
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
-    LayoutModule
+    LayoutModule,
   ],
-  declarations: [UserDashboardComponent]
+  declarations: [UserDashboardComponent],
 })
-export class UserModule { }
+export class UserModule {}
