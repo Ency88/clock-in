@@ -25,7 +25,6 @@ export class NavigationComponent implements AfterViewChecked {
   ngAfterViewChecked() {
     const auth = this.authService.isAuthenticated();
     if (auth !== this.auth) {
-      // check if it change, tell CD update view
       this.auth = auth;
       this.cdRef.detectChanges();
     }
