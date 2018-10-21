@@ -11,7 +11,7 @@ import {
 import { LayoutModule } from '@angular/cdk/layout';
 import { UserRoutingModule } from './user-routing.module';
 import { UserLoginComponent } from './pages/user-login/user-login.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserLogoutComponent } from './pages/user-logout/user-logout.component';
 
 @NgModule({
@@ -25,7 +25,7 @@ import { UserLogoutComponent } from './pages/user-logout/user-logout.component';
     MatButtonModule,
     LayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [UserDashboardComponent, UserLoginComponent, UserLogoutComponent],
 })

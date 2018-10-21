@@ -8,9 +8,8 @@ describe('UserLogoutComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserLogoutComponent ]
-    })
-    .compileComponents();
+      declarations: [UserLogoutComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
