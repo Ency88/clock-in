@@ -2,11 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
+import {UserLoginComponent} from './pages/user-login/user-login.component';
+import {AuthGuardService} from '../services/auth-guard.service';
 
 const routes: Routes = [
   {
     path: 'dashboard',
-    component: UserDashboardComponent,
+    component: UserDashboardComponent
+  },
+  {
+    path: 'login',
+    component: UserLoginComponent
   },
   {
     path: '',
