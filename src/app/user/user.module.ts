@@ -10,6 +10,8 @@ import {
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { UserRoutingModule } from './user-routing.module';
+import {SigninComponent} from './auth/signin/signin.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -20,8 +22,9 @@ import { UserRoutingModule } from './user-routing.module';
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
+    FormsModule,
     LayoutModule,
   ],
-  declarations: [UserDashboardComponent],
+  declarations: [UserDashboardComponent, SigninComponent],
 })
 export class UserModule {}
