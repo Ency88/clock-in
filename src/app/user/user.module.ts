@@ -12,6 +12,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { UserRoutingModule } from './user-routing.module';
 import { UserLoginComponent } from './pages/user-login/user-login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { UserLogoutComponent } from './pages/user-logout/user-logout.component';
 
 @NgModule({
   imports: [
@@ -26,6 +27,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [UserDashboardComponent, UserLoginComponent],
+  declarations: [UserDashboardComponent, UserLoginComponent, UserLogoutComponent],
 })
 export class UserModule {}
