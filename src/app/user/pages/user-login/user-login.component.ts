@@ -30,11 +30,11 @@ export class UserLoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  getFormValues() {
+  get getFormValues() {
     return this.loginForm.controls;
   }
 
-  onSubmit() {
+  login() {
     this.submitted = true;
 
     if (this.loginForm.invalid) {
@@ -42,7 +42,7 @@ export class UserLoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authService.signInRegular(this.getFormValues().username.value, this.getFormValues().password.value)
+    this.authService.signInRegular(this.getFormValues.username.value, this.getFormValues.password.value)
       .then((res) => {
         console.log(res);
         this.router.navigate([this.returnUrl]);
