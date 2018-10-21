@@ -19,10 +19,10 @@ import {
   MatCardModule,
   MatMenuModule,
 } from '@angular/material';
-import {AuthService} from './user/auth/service/auth.service';
-import {AngularFireModule} from '@angular/fire';
-import {AngularFireAuthModule} from '@angular/fire/auth';
-import {AngularFireDatabaseModule} from '@angular/fire/database';
+import { AuthService } from './user/auth/service/auth.service';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 @NgModule({
   declarations: [AppComponent, NavigationComponent],
   imports: [
