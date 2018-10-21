@@ -19,6 +19,9 @@ import {
   MatCardModule,
   MatMenuModule,
 } from '@angular/material';
+import { AuthGuardService } from './services/auth-guard.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthGuardLoggedOutService } from './services/auth-guard-logged-out.service';
 import { AuthService } from './user/auth/service/auth.service';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -42,8 +45,13 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuardService, AuthGuardLoggedOutService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
