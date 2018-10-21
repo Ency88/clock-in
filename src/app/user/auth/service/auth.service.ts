@@ -1,5 +1,5 @@
-import { Router } from '@angular/router';
-import { Injectable } from '@angular/core';
+import {Router} from '@angular/router';
+import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 
 
@@ -7,7 +7,8 @@ import {AngularFireAuth} from '@angular/fire/auth';
 export class AuthService {
   token: string;
 
-  constructor(private router: Router, private fireAuth: AngularFireAuth) {}
+  constructor(private router: Router, private fireAuth: AngularFireAuth) {
+  }
 
   signupUser(email: string, password: string) {
     this.fireAuth.auth.createUserWithEmailAndPassword(email, password)
