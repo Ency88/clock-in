@@ -22,10 +22,10 @@ import {
 import { AuthGuardService } from './services/auth-guard.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuardLoggedOutService } from './services/auth-guard-logged-out.service';
-import { AuthService } from './user/auth/service/auth.service';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AuthService } from './services/auth.service';
 @NgModule({
   declarations: [AppComponent, NavigationComponent],
   imports: [
@@ -45,7 +45,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
-    AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     FormsModule,

@@ -1,39 +1,42 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable()
 export class AuthService {
-  user: Observable<firebase.User>;
-  userDetails: firebase.User = null;
+  token: string;
 
-  constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {
-    this.user = _firebaseAuth.authState;
-    this.user.subscribe(user => {
-      if (user) {
-        this.userDetails = user;
-      } else {
-        this.userDetails = null;
-      }
+  constructor(private router: Router, private fireAuth: AngularFireAuth) {}
+
+  signupUser(email: string, password: string) {
+    this.fireAuth.auth.createUserWithEmailAndPassword(email, password).catch(error => {
+      alert(error);
     });
   }
 
-  signInRegular(email, password) {
-    const credential = firebase.auth.EmailAuthProvider.credential(email, password);
-    return this._firebaseAuth.auth.signInWithEmailAndPassword(email, password);
-  }
-
-  isLoggedIn() {
-    if (this.userDetails == null) {
-      return false;
-    } else {
-      return true;
-    }
+  signinUser(email: string, password: string) {
+    this.fireAuth.auth
+      .signInWithEmailAndPassword(email, password)
+      .then(response => {
+        this.router.navigate(['/user/dashboard']);
+        this.fireAuth.auth.currentUser.getIdToken().then((token: string) => (this.token = token));
+      })
+      .catch(error => {
+        alert(error);
+      });
   }
 
   logout() {
-    this._firebaseAuth.auth.signOut().then(res => this.router.navigate(['/user/login']));
+    this.fireAuth.auth.signOut();
+    this.token = null;
+  }
+
+  getToken() {
+    this.fireAuth.auth.currentUser.getIdToken().then((token: string) => (this.token = token));
+    return this.token;
+  }
+
+  isAuthenticated() {
+    return this.token != null;
   }
 }

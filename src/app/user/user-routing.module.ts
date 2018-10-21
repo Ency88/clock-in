@@ -6,7 +6,6 @@ import { UserLoginComponent } from './pages/user-login/user-login.component';
 import { AuthGuardService } from '../services/auth-guard.service';
 import { UserLogoutComponent } from './pages/user-logout/user-logout.component';
 import { AuthGuardLoggedOutService } from '../services/auth-guard-logged-out.service';
-import { SigninComponent } from './auth/signin/signin.component';
 
 const routes: Routes = [
   {
@@ -22,10 +21,6 @@ const routes: Routes = [
   {
     path: 'logout',
     component: UserLogoutComponent,
-  },
-  {
-    path: 'login',
-    component: SigninComponent,
   },
   {
     path: '',
