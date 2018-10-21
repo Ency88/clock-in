@@ -8,7 +8,6 @@ import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { AngularFireModule } from 'angularfire2';
 
 import {
   MatToolbarModule,
@@ -20,13 +19,13 @@ import {
   MatCardModule,
   MatMenuModule,
 } from '@angular/material';
-import { AuthService } from './services/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthGuardLoggedOutService } from './services/auth-guard-logged-out.service';
-
+import { AuthService } from './user/auth/service/auth.service';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 @NgModule({
   declarations: [AppComponent, NavigationComponent],
   imports: [
@@ -40,6 +39,9 @@ import { AuthGuardLoggedOutService } from './services/auth-guard-logged-out.serv
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
