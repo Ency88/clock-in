@@ -12,7 +12,6 @@ export class UserLoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   loading = false;
-  returnUrl = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,9 +24,6 @@ export class UserLoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-
-    // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   get getFormValues() {
@@ -45,11 +41,12 @@ export class UserLoginComponent implements OnInit {
     this.authService.signInRegular(this.getFormValues.username.value, this.getFormValues.password.value)
       .then((res) => {
         console.log(res);
-        this.router.navigate([this.returnUrl]);
+        this.router.navigate(['/user/dashboard']);
       })
       .catch((err) => {
         console.log(err);
         this.loading = false;
       });
   }
+
 }

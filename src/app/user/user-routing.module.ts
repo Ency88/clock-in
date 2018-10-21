@@ -5,15 +5,18 @@ import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.co
 import {UserLoginComponent} from './pages/user-login/user-login.component';
 import {AuthGuardService} from '../services/auth-guard.service';
 import {UserLogoutComponent} from './pages/user-logout/user-logout.component';
+import {AuthGuardLoggedOutService} from '../services/auth-guard-logged-out.service';
 
 const routes: Routes = [
   {
     path: 'dashboard',
-    component: UserDashboardComponent
+    component: UserDashboardComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'login',
-    component: UserLoginComponent
+    component: UserLoginComponent,
+    canActivate: [AuthGuardLoggedOutService]
   },
   {
     path: 'logout',
@@ -21,7 +24,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
 ];

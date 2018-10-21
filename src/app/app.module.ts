@@ -25,6 +25,7 @@ import {AuthGuardService} from './services/auth-guard.service';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AuthGuardLoggedOutService} from './services/auth-guard-logged-out.service';
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent],
@@ -48,7 +49,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService, AuthGuardService],
+  providers: [AuthService, AuthGuardService, AuthGuardLoggedOutService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
