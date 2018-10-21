@@ -10,8 +10,8 @@ import {
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { UserRoutingModule } from './user-routing.module';
-import {SigninComponent} from './auth/signin/signin.component';
-import {FormsModule} from '@angular/forms';
+import { SigninComponent } from './auth/signin/signin.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
