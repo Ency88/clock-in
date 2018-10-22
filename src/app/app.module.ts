@@ -20,7 +20,7 @@ import {
   MatMenuModule,
 } from '@angular/material';
 import { AuthGuardService } from './services/auth-guard.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { AuthGuardLoggedOutService } from './services/auth-guard-logged-out.service';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -47,10 +47,9 @@ import { AuthService } from './services/auth.service';
     MatMenuModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    FormsModule,
-    ReactiveFormsModule,
+    FormsModule
   ],
-  providers: [AuthService, AuthGuardService, AuthGuardLoggedOutService],
+  providers: [AuthGuardService, AuthGuardLoggedOutService, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

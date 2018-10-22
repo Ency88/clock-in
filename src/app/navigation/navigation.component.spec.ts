@@ -9,6 +9,11 @@ import {
 } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {AuthService} from '../services/auth.service';
+import {environment} from '../../environments/environment';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -24,8 +29,13 @@ describe('NavigationComponent', () => {
         RouterTestingModule,
         MatGridListModule,
         NoopAnimationsModule,
+        AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
+        AngularFireDatabaseModule,
+        AngularFireAuthModule,
+
       ],
       declarations: [NavigationComponent],
+      providers: [AuthService],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NavigationComponent);
