@@ -18,7 +18,7 @@ export class AuthService {
     this.fireAuth.auth
       .signInWithEmailAndPassword(email, password)
       .then(response => {
-        this.router.navigate(['/user/dashboard']);
+        this.router.navigate(['/']);
         this.fireAuth.auth.currentUser.getIdToken().then((token: string) => (this.token = token));
       })
       .catch(error => {
