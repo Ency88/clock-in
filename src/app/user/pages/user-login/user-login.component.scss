@@ -1,0 +1,56 @@
+form {
+  width: 450px;
+  border: 1px solid #eee;
+  margin-top: 100px;
+  padding: 20px;
+  box-shadow: 0 2px 3px #ccc;
+  text-align: center;
+}
+
+input {
+  margin: 10px auto;
+}
+
+input label {
+  display: block;
+  color: #4e4e4e;
+  margin-bottom: 6px;
+}
+
+input input {
+  font: inherit;
+  width: 100%;
+  padding: 6px 12px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+}
+
+input input:focus {
+  outline: none;
+  border: 1px solid #521751;
+  background-color: #eee;
+}
+
+#submit {
+  background-color: #004953;
+  color: white;
+  padding: 10px 20px;
+  font: inherit;
+}
+
+#submit:hover,
+#submit:active {
+  background-color: white;
+  color: #004953;
+  border: 1px solid #004953 !important;
+  cursor: pointer;
+}
+
+#submit [disabled],
+#submit [disabled]:hover,
+#submit [disabled]:active {
+  border: 2px solid #004953;
+  background-color: white;
+  color: #004953;
+  cursor: not-allowed;
+}
