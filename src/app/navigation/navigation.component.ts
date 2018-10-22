@@ -18,7 +18,7 @@ export class NavigationComponent implements AfterViewChecked {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private authService: AuthService,
+    public authService: AuthService,
     private cdRef: ChangeDetectorRef
   ) {}
 
