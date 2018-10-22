@@ -47,7 +47,7 @@ import { AuthService } from './services/auth.service';
     MatMenuModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [AuthGuardService, AuthGuardLoggedOutService, AuthService],
   bootstrap: [AppComponent],
