@@ -1,9 +1,11 @@
 @import '~@angular/material/theming';
-@import '~bootstrap/dist/css/bootstrap.min.css';
+@import "~bootstrap/dist/css/bootstrap.min.css";
 
 @include mat-core();
 
-$senacor-green: (#004953);
+$senacor-green: (
+  #004953
+);
 $my-green: (
   50: #004953,
   100: #004953,
@@ -20,21 +22,26 @@ $my-green: (
   A400: #004953,
   A700: #004953,
   contrast: (
-    50: white,
-  ),
+    50: white
+  )
 );
+
 $my-app-primary: mat-palette($my-green, 50);
 $my-app-accent: mat-palette($mat-pink, A200, A100, A400);
 $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent);
+
 @include angular-material-theme($my-app-theme);
+
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
 }
+
 button {
   border: 1px solid white !important;
 }
