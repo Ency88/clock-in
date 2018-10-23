@@ -1,11 +1,9 @@
 @import '~@angular/material/theming';
-@import "~bootstrap/dist/css/bootstrap.min.css";
+@import '~bootstrap/dist/css/bootstrap.min.css';
 
 @include mat-core();
 
-$senacor-green: (
-  #004953
-);
+$senacor-green: (#004953);
 
 $my-green: (
   50: #004953,
@@ -23,8 +21,8 @@ $my-green: (
   A400: #004953,
   A700: #004953,
   contrast: (
-    50: white
-  )
+    50: white,
+  ),
 );
 
 $my-app-primary: mat-palette($my-green, 50);
