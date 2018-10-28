@@ -43,4 +43,4 @@ cobertura-coverage.xml
 karma-testreport.xml
 
 # environment files
-environment.ts
+src/environments/environment.ts
