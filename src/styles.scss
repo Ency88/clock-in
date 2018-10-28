@@ -1,5 +1,5 @@
 @import '~@angular/material/theming';
-@import '~bootstrap/dist/css/bootstrap.min.css';
+
 
 @include mat-core();
 
@@ -31,25 +31,12 @@ $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent);
 
 @include angular-material-theme($my-app-theme);
 
-html {
+html,
+body {
   height: 100%;
 }
 
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-}
-
-button {
-  border: 1px solid white !important;
-}
-
-button:hover {
-  background-color: white;
-  color: #004953;
-}
-
-button:active {
-  background-color: white;
-  color: #004953;
 }

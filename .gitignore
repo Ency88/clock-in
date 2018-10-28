@@ -41,3 +41,6 @@ Thumbs.db
 # tests-related
 cobertura-coverage.xml
 karma-testreport.xml
+
+# environment files
+src/environments/environment.ts
