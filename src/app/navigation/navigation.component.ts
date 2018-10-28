@@ -1,33 +1,43 @@
-import { AfterViewChecked, ChangeDetectorRef, Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'ci-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
 })
-export class NavigationComponent implements AfterViewChecked {
+export class NavigationComponent {
+  @ViewChild('drawer')
+  public drawer;
+
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(map(result => result.matches));
 
-  auth = false;
-
   constructor(
     private breakpointObserver: BreakpointObserver,
     public authService: AuthService,
-    private cdRef: ChangeDetectorRef
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
-  ngAfterViewChecked() {
-    const auth = this.authService.isAuthenticated();
-    if (auth !== this.auth) {
-      // check if it change, tell CD update view
-      this.auth = auth;
-      this.cdRef.detectChanges();
-    }
+  toggle() {
+    this.drawer.toggle();
+  }
+
+  logout() {
+    this.authService.logout().subscribe(
+      () => this.router.navigate(['login']),
+      () =>
+        this.snackBar.open('Log out was not successful', '', {
+          duration: 1500,
+          horizontalPosition: 'end',
+        })
+    );
   }
 }

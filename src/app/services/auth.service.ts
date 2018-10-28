@@ -1,42 +1,24 @@
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { User } from 'firebase';
+import { from, Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
-  token: string;
+  user: Observable<User>;
 
-  constructor(private router: Router, private fireAuth: AngularFireAuth) {}
-
-  signupUser(email: string, password: string) {
-    this.fireAuth.auth.createUserWithEmailAndPassword(email, password).catch(error => {
-      alert(error);
-    });
+  constructor(private router: Router, private fireAuth: AngularFireAuth) {
+    this.user = fireAuth.user;
   }
 
-  signinUser(email: string, password: string) {
-    this.fireAuth.auth
-      .signInWithEmailAndPassword(email, password)
-      .then(response => {
-        this.router.navigate(['/user/dashboard']);
-        this.fireAuth.auth.currentUser.getIdToken().then((token: string) => (this.token = token));
-      })
-      .catch(error => {
-        alert(error);
-      });
+  login(email: string, password: string): Observable<any> {
+    return from(this.fireAuth.auth.signInWithEmailAndPassword(email, password));
   }
 
-  logout() {
-    this.fireAuth.auth.signOut();
-    this.token = null;
-  }
-
-  getToken() {
-    this.fireAuth.auth.currentUser.getIdToken().then((token: string) => (this.token = token));
-    return this.token;
-  }
-
-  isAuthenticated() {
-    return this.token != null;
+  logout(): Observable<any> {
+    return from(this.fireAuth.auth.signOut());
   }
 }

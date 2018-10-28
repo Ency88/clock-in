@@ -8,48 +8,30 @@ import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
-
-import {
-  MatToolbarModule,
-  MatButtonModule,
-  MatSidenavModule,
-  MatIconModule,
-  MatListModule,
-  MatGridListModule,
-  MatCardModule,
-  MatMenuModule,
-} from '@angular/material';
-import { AuthGuardService } from './services/auth-guard.service';
-import { FormsModule } from '@angular/forms';
-import { AuthGuardLoggedOutService } from './services/auth-guard-logged-out.service';
+import { AuthGuard } from './services/guards/auth.guard';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AuthService } from './services/auth.service';
+import { LoginComponent } from './ui/login/login.component';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from './material.module';
+
 @NgModule({
-  declarations: [AppComponent, NavigationComponent],
+  declarations: [AppComponent, NavigationComponent, LoginComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    AngularFireModule.initializeApp(environment.firebase, 'angular-auth-firebase'),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
-    AngularFireAuthModule,
-    AngularFireDatabaseModule,
-    FormsModule,
+    MaterialModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
   ],
-  providers: [AuthGuardService, AuthGuardLoggedOutService, AuthService],
+  providers: [AuthGuard, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
