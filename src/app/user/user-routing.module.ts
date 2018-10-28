@@ -8,11 +8,6 @@ const routes: Routes = [
     path: 'dashboard',
     component: UserDashboardComponent,
   },
-  {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full',
-  },
 ];
 
 @NgModule({

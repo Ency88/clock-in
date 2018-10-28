@@ -1,0 +1,27 @@
+<div class="row center-xs img-wrapper">
+  <img class="col" width="80px" height="65px" src="assets/images/senacor-logo.png" alt="Senacor-logo">
+</div>
+<form [formGroup]="loginForm">
+  <div class="row center-xs">
+    <mat-form-field class="col-xs-10 col-md-4">
+      <input matInput placeholder="Email" formControlName="email">
+      <mat-error *ngIf="loginForm.controls['email'].hasError('email') && !loginForm.controls['email'].hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+        Email is required
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="row center-xs">
+    <mat-form-field class="col-xs-10 col-md-4">
+      <input type="password" formControlName="password" matInput placeholder="Password">
+      <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+        Password is required
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="row center-xs">
+    <button mat-raised-button color="accent" type="button" [disabled]="loginForm.invalid" (click)="login()">Login</button>
+  </div>
+</form>
