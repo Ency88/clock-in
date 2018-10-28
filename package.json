@@ -34,8 +34,6 @@
     "flexboxgrid": "^6.3.1",
     "observable": "^2.1.4",
     "popper.js": "^1.14.4",
-    "prettier-eslint-cli": "^4.7.1",
-    "prettier-stylelint": "^0.4.2",
     "rxjs": "^6.2.2",
     "rxjs-compat": "^6.3.3",
     "zone.js": "~0.8.26"

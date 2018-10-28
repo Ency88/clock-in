@@ -4,6 +4,14 @@
 
 export const environment = {
   production: false,
+  firebase: {
+    apiKey: 'AIzaSyB-A-mWWLxY1aqEF-_Xnz-FAkLBtUvasVA',
+    authDomain: 'clockin-218308.firebaseapp.com',
+    databaseURL: 'https://clockin-218308.firebaseio.com',
+    projectId: 'clockin-218308',
+    storageBucket: 'clockin-218308.appspot.com',
+    messagingSenderId: '856717207263',
+  },
 };
 
 /*
