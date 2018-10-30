@@ -8,7 +8,7 @@ export const environment = {
     apiKey: 'KEY',
     authDomain: 'AUTH-DOMAIN',
     databaseURL: 'DATABASE-URL',
-    projectId: 'PROJECT-ID',
+    projectId: 'clockin-35cca',
     storageBucket: 'STORAGE-BUCKET',
     messagingSenderId: 'MESSAGING-SENDER-ID',
   },

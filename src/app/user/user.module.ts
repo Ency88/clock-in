@@ -5,9 +5,11 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { UserRoutingModule } from './user-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
+import { UserMonthlyDetailComponent } from './pages/monthly-detail/user-monthly-detail.component';
+import {MomentModule} from 'angular2-moment';
 
 @NgModule({
-  imports: [CommonModule, UserRoutingModule, LayoutModule, ReactiveFormsModule, MaterialModule],
-  declarations: [UserDashboardComponent],
+  imports: [CommonModule, UserRoutingModule, LayoutModule, ReactiveFormsModule, MaterialModule, MomentModule],
+  declarations: [UserDashboardComponent, UserMonthlyDetailComponent],
 })
 export class UserModule {}

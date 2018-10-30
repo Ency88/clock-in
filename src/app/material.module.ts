@@ -11,6 +11,7 @@ import {
   MatSnackBarModule,
   MatToolbarModule,
 } from '@angular/material';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import {
     MatMenuModule,
     MatInputModule,
     MatSnackBarModule,
+    MatExpansionModule,
   ],
   exports: [
     MatToolbarModule,
@@ -36,6 +38,7 @@ import {
     MatMenuModule,
     MatInputModule,
     MatSnackBarModule,
+    MatExpansionModule,
   ],
 })
 export class MaterialModule {}
