@@ -11,7 +11,7 @@ import {
   MatSnackBarModule,
   MatToolbarModule,
 } from '@angular/material';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   imports: [

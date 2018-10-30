@@ -1,4 +1,4 @@
-import {TimeRecord} from './time.record.model';
+import { TimeRecord } from './time.record.model';
 
 export class Attendance {
   public day: string;

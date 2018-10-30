@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
-import { UserMonthlyDetailComponent} from './pages/monthly-detail/user-monthly-detail.component';
+import { UserMonthlyDetailComponent } from './pages/monthly-detail/user-monthly-detail.component';
 
 const routes: Routes = [
   {
@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: 'monthly-detail',
     component: UserMonthlyDetailComponent,
-  }
+  },
 ];
 
 @NgModule({
