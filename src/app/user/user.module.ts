@@ -8,13 +8,7 @@ import { MaterialModule } from '../material.module';
 import { UserMonthlyDetailComponent } from './pages/monthly-detail/user-monthly-detail.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    UserRoutingModule,
-    LayoutModule,
-    ReactiveFormsModule,
-    MaterialModule,
-  ],
+  imports: [CommonModule, UserRoutingModule, LayoutModule, ReactiveFormsModule, MaterialModule],
   declarations: [UserDashboardComponent, UserMonthlyDetailComponent],
 })
 export class UserModule {}
