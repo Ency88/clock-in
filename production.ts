@@ -25,5 +25,5 @@ export const testUser3 = {
 export const workingDay1 = {
   from: 'October 30, 2018 7:30:00 AM',
   to: 'October 30, 2018 12:30:00 AM',
-  type: 'work'
+  type: 'work',
 };
