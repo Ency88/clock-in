@@ -1,5 +1,5 @@
 <div class="grid-container">
-  <mat-grid-list cols="2" rowHeight="350px">
+  <mat-grid-list cols="1" rowHeight="350px">
     <mat-grid-tile>
       <mat-card class="dashboard-card">
         <mat-card-header>
@@ -8,8 +8,11 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
-          <mat-spinner></mat-spinner>
+          <div style="padding-bottom: 50px">{{ date.getDate() }}.{{date.getMonth()}}.{{date.getFullYear()}}</div>
+          <mat-progress-spinner class="progress-spinner" mode="determinate" #progress_spinner></mat-progress-spinner>
+          <button type="button" mat-button (click)="startTracking()">
+            Start
+          </button>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

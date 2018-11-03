@@ -7,6 +7,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { TimeComponentComponent } from './pages/time-component/time-component.component';
 
+
+
 @NgModule({
   imports: [CommonModule, UserRoutingModule, LayoutModule, ReactiveFormsModule, MaterialModule],
   declarations: [UserDashboardComponent, TimeComponentComponent],
