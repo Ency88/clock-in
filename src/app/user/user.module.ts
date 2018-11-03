@@ -5,9 +5,10 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { UserRoutingModule } from './user-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
+import {TimeLoggerComponent} from './pages/time-logger/time-logger.component';
 
 @NgModule({
   imports: [CommonModule, UserRoutingModule, LayoutModule, ReactiveFormsModule, MaterialModule],
-  declarations: [UserDashboardComponent],
+  declarations: [UserDashboardComponent, TimeLoggerComponent],
 })
 export class UserModule {}
