@@ -44,3 +44,6 @@ karma-testreport.xml
 
 # environment files
 src/environments/environment.ts
+
+# firebase
+functions/node_modules/
