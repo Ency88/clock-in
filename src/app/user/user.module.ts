@@ -5,12 +5,13 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { UserRoutingModule } from './user-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
-import { TimeComponentComponent } from './pages/time-component/time-component.component';
+import { TimeLoggerComponent } from './pages/time-logger/time-logger.component';
+import {HoursMinutesSeconds} from '../pipes/hours.minutes.seconds.pipe';
 
 
 
 @NgModule({
   imports: [CommonModule, UserRoutingModule, LayoutModule, ReactiveFormsModule, MaterialModule],
-  declarations: [UserDashboardComponent, TimeComponentComponent],
+  declarations: [UserDashboardComponent, TimeLoggerComponent, HoursMinutesSeconds],
 })
 export class UserModule {}

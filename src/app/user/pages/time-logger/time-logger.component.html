@@ -1,0 +1,26 @@
+<div class="grid-container">
+  <mat-grid-list cols="1" rowHeight="450px">
+    <mat-grid-tile>
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            <h1 class="mat-h1">Time Logger</h1>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div style="padding-bottom: 50px">{{ date.getDate() }}.{{date.getMonth()}}.{{date.getFullYear()}}</div>
+          <mat-progress-spinner class="progress-spinner" mode="determinate" [value]="timeLoggerService.progressValue" #progress_spinner></mat-progress-spinner>
+          <div style="margin: 20px;">{{timeLoggerService.timer | hoursMinutesSeconds}}</div>
+          <button style="margin-bottom: 20px;" type="button" #startBttn mat-button (click)="processTracking()">
+            <div *ngIf="timeLoggerService.tracking===true; else startTxt">
+              Stop
+            </div>
+            <ng-template #startTxt>
+              Start
+            </ng-template>
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

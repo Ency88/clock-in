@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
-import {TimeComponentComponent} from './pages/time-component/time-component.component';
+import { TimeLoggerComponent } from './pages/time-logger/time-logger.component';
 
 const routes: Routes = [
   {
@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'time-logger',
-    component: TimeComponentComponent,
+    component: TimeLoggerComponent,
   }
 ];
 
