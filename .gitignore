@@ -47,3 +47,4 @@ src/environments/environment.ts
 
 # firebase
 functions/node_modules/
+functions/lib/
