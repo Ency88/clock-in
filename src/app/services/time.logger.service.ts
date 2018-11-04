@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IntervalObservable } from 'rxjs-compat/observable/IntervalObservable';
-import {MatProgressSpinner, MatSnackBar} from '@angular/material';
+import { MatProgressSpinner, MatSnackBar } from '@angular/material';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +12,7 @@ export class TimeLoggerService {
   public progress_spinner: MatProgressSpinner;
   public progressValue = 0;
 
-  constructor(private snackBar: MatSnackBar) {
-  }
+  constructor(private snackBar: MatSnackBar) {}
 
   public setProgressSpinner(progress_spinner: MatProgressSpinner) {
     this.progress_spinner = progress_spinner;
@@ -22,15 +21,13 @@ export class TimeLoggerService {
   startTracking() {
     this.tracking = true;
     this.intervalObservable = IntervalObservable.create(1000);
-    this.intervalObservable = this.intervalObservable
-      .subscribe(() => {
-          if (this.tracking === false) {
-            this.intervalObservable.unsubscribe();
-          }
-          this.timer++;
-          this.calculateProgressValue();
-        }
-      );
+    this.intervalObservable = this.intervalObservable.subscribe(() => {
+      if (this.tracking === false) {
+        this.intervalObservable.unsubscribe();
+      }
+      this.timer++;
+      this.calculateProgressValue();
+    });
   }
 
   calculateProgressValue() {
@@ -50,6 +47,4 @@ export class TimeLoggerService {
   stopTracking() {
     this.tracking = false;
   }
-
-
 }

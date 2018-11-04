@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: 'time-logger',
     component: TimeLoggerComponent,
-  }
+  },
 ];
 
 @NgModule({

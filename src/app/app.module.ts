@@ -16,8 +16,7 @@ import { LoginComponent } from './ui/login/login.component';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
-import {TimeLoggerService} from './services/time.logger.service';
-
+import { TimeLoggerService } from './services/time.logger.service';
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent, LoginComponent],
