@@ -32,7 +32,11 @@
     "core-js": "^2.5.4",
     "firebase": "^5.5.5",
     "flexboxgrid": "^6.3.1",
+    "html-pdf": "^2.2.0",
+    "jspdf": "^1.4.1",
+    "mustache": "^3.0.0",
     "observable": "^2.1.4",
+    "pdfjs-dist": "^2.0.943",
     "popper.js": "^1.14.4",
     "rxjs": "^6.2.2",
     "rxjs-compat": "^6.3.3",
@@ -61,8 +65,8 @@
     "stylelint": "^9.6.0",
     "stylelint-config-standard": "^18.2.0",
     "stylelint-scss": "^3.3.1",
-    "ts-node": "~7.0.0",
+    "ts-node": "^7.0.1",
     "tslint": "~5.11.0",
-    "typescript": "~2.9.2"
+    "typescript": "^2.9.2"
   }
 }
