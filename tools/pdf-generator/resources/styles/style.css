@@ -3,9 +3,35 @@
 }
 
 .container {
-  margin-top: 140px;
+  margin-top: 50px;
 }
 
-.invoice-content {
-  page-break-after: always;
+@page {
+  margin: 100px 35px;
+  size: letter portrait;
+
+  @top-left {
+    content: element(pageHeader);
+  }
+
+  @bottom-left {
+    content: counter(page) "/" counter(pages);
+  }
+}
+
+#pageHeader {
+  position: running(pageHeader);
+}
+
+#pageFooter {
+  position: running(pageFooter);
+}
+
+tr {
+  page-break-inside: avoid;
+}
+
+.table-wrapper {
+  padding-left: 40px !important;
+  padding-right: 40px !important;
 }
