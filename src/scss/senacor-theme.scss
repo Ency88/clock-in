@@ -69,5 +69,4 @@ $ci-accent: (
 $ci-app-primary: mat-palette($ci-primary);
 $ci-app-accent: mat-palette($ci-accent);
 $ci-app-theme: mat-light-theme($ci-app-primary, $ci-app-accent);
-
 @include angular-material-theme($ci-app-theme);
