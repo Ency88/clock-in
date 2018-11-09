@@ -26,17 +26,15 @@ export default class PdfGenerator {
   public run(): Promise<string> {
     const content = fs.readFileSync('invoice-tpl.html', 'utf-8');
     const output = mustache.render(content, this.data);
-    const options = {format: 'Letter'};
+    const options = { format: 'Letter' };
 
-    return new Promise<string>(
-      (resolve, reject) => {
-        pdf.create(output, options).toFile('./report.pdf', (err, res) => {
-          if (err) {
-            reject(err);
-          }
-          resolve(res);
-        });
-      }
-    );
+    return new Promise<string>((resolve, reject) => {
+      pdf.create(output, options).toFile('./report.pdf', (err, res) => {
+        if (err) {
+          reject(err);
+        }
+        resolve(res);
+      });
+    });
   }
 }
