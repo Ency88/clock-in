@@ -60,6 +60,6 @@ export class UserMonthlyDetailComponent {
     const minutes = Math.floor((result % 3600) / 60);
     const seconds = result % 60;
 
-    return hours + ' hrs, ' + minutes + ' mins, ' + seconds + ' secs';
+    return hours + ' hrs, ' + minutes + ' mins';
   }
 }
