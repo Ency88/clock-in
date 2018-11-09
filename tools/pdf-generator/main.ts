@@ -1,5 +1,7 @@
-const PDFGenerator = require('./pdf-generator');
+import PdfGenerator from './pdf-generator';
 
-let pdfgenerator_instance = new PDFGenerator();
+const pdfgenerator_instance = new PdfGenerator();
 
-pdfgenerator_instance.run();
+pdfgenerator_instance.run()
+  .then(value => console.log(value))
+  .catch((err) => console.log(err));
