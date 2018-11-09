@@ -20,10 +20,10 @@
                 <div *ngFor="let timeRecord of attendance.timeRecords">
                   <div *ngIf="timeRecord.type === workType">
                     <div class="row">
-                      <div class="col-md-4 col-sm-4 col-xs-4">FROM:
+                      <div class="col-md-4 col-sm-4 col-xs-4 timeRecordColumn">FROM:
                         {{timeRecord.from.getHours()}}:{{timeRecord.from.getMinutes()}}
                       </div>
-                      <div class="col-md-4 col-sm-4 col-xs-4">TO:
+                      <div class="col-md-4 col-sm-4 col-xs-4 timeRecordColumn">TO:
                         {{timeRecord.to.getHours()}}:{{timeRecord.to.getMinutes()}}
                       </div>
                       <div class="col-md-4 col-sm-4 col-xs-4">
