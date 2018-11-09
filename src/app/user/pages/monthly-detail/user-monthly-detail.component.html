@@ -8,7 +8,7 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div  *ngFor="let attendance of attendances | async">
+          <div *ngFor="let attendance of attendances | async">
             <mat-accordion>
               <mat-expansion-panel>
                 <mat-expansion-panel-header>
@@ -18,14 +18,20 @@
                   </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div *ngFor="let timeRecord of attendance.timeRecords">
-                  <div *ngIf="timeRecord.type === work">
-                    <mat-grid-list cols="2" rowHeight="2:1">
-                      <mat-grid-tile>FROM: {{timeRecord.from.getHours()}}:{{timeRecord.from.getMinutes()}}</mat-grid-tile>
-                      <mat-grid-tile>TO: {{timeRecord.to.getHours()}}:{{timeRecord.to.getMinutes()}}</mat-grid-tile>
-                    </mat-grid-list>
+                  <div *ngIf="timeRecord.type === workType">
+                    <div class="row">
+                      <div class="col-md-4 col-sm-4 col-xs-4">FROM:
+                        {{timeRecord.from.getHours()}}:{{timeRecord.from.getMinutes()}}
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-xs-4">TO:
+                        {{timeRecord.to.getHours()}}:{{timeRecord.to.getMinutes()}}
+                      </div>
+                      <div class="col-md-4 col-sm-4 col-xs-4">
+                        <button mat-button color="primary">Edit</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <button mat-button color="primary">Edit</button>
               </mat-expansion-panel>
               <mat-expansion-panel (opened)="panelOpenState = true"
                                    (closed)="panelOpenState = false">

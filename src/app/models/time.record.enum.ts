@@ -1,4 +1,4 @@
 export enum TimeRecordEnum {
-  work,
-  pause,
+  work = 'work',
+  pause = 'pause',
 }
