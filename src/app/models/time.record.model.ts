@@ -1,3 +1,7 @@
-import {TimeRecordEnum} from './time.record.enum';
+import { TimeRecordEnum } from './time.record.enum';
 
-export interface TimeRecord {from: Date; to: Date; type: TimeRecordEnum; }
+export interface TimeRecord {
+  from: Date;
+  to: Date;
+  type: TimeRecordEnum;
+}
