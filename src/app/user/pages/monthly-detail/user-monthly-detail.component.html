@@ -13,14 +13,16 @@
               <mat-expansion-panel>
                 <mat-expansion-panel-header>
                   <mat-panel-description>
-                    {{attendance.day}} {{attendance.date.getDate()}}.{{attendance.date.getMonth()}}.{{attendance.date.getFullYear()}}
+                    {{headerText(attendance)}}
                     {{calculateTotalTime(attendance.timeRecords)}}
                   </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div *ngFor="let timeRecord of attendance.timeRecords">
-                  <div *ngIf="timeRecord.type === 'work'">
-                    FROM: {{timeRecord.from.getHours()}}:{{timeRecord.from.getMinutes()}}
-                    TO: {{timeRecord.to.getHours()}}:{{timeRecord.to.getMinutes()}}
+                  <div *ngIf="timeRecord.type === work">
+                    <mat-grid-list cols="2" rowHeight="2:1">
+                      <mat-grid-tile>FROM: {{timeRecord.from.getHours()}}:{{timeRecord.from.getMinutes()}}</mat-grid-tile>
+                      <mat-grid-tile>TO: {{timeRecord.to.getHours()}}:{{timeRecord.to.getMinutes()}}</mat-grid-tile>
+                    </mat-grid-list>
                   </div>
                 </div>
                 <button mat-button color="primary">Edit</button>

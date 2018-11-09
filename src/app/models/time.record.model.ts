@@ -1,11 +1,3 @@
-export class TimeRecord {
-  public from: Date;
-  public to: Date;
-  public type: string;
+import {TimeRecordEnum} from './time.record.enum';
 
-  constructor(from: Date, to: Date, type: string) {
-    this.from = from;
-    this.to = to;
-    this.type = type;
-  }
-}
+export interface TimeRecord {from: Date; to: Date; type: TimeRecordEnum; }
