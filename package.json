@@ -11,7 +11,8 @@
     "e2e": "webdriver-manager update --standalone false --gecko false --ignore_ssl && ng e2e --no-webdriver-update",
     "prettier": "prettier \"**/*.ts\" \"**/*.scss\" \"**/*.json\"",
     "prettier-fix": "npm run prettier -- --write",
-    "pullrequest-check": "npm run lint && npm run test && ng build --prod"
+    "pullrequest-check": "npm run lint && npm run test && ng build --prod",
+    "fill-test-environment": "ts-node fill-test-environment.ts"
   },
   "private": true,
   "dependencies": {
@@ -30,7 +31,7 @@
     "@angular/router": "^6.1.0",
     "@angular/service-worker": "^6.1.0",
     "core-js": "^2.5.4",
-    "firebase": "^5.5.5",
+    "firebase": "^5.5.7",
     "flexboxgrid": "^6.3.1",
     "html-pdf": "^2.2.0",
     "jspdf": "^1.4.1",
