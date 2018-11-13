@@ -24,10 +24,6 @@ export const addUserToFirestoreOnCreate = functions.auth.user().onCreate((user: 
 });
 
 const app = express();
-// Express middleware that validates Firebase ID Tokens passed in the Authorization HTTP header.
-// The Firebase ID token needs to be passed as a Bearer token in the Authorization HTTP header like this:
-// `Authorization: Bearer <Firebase ID Token>`.
-// when decoded successfully, the ID Token content will be added as `req.user`.
 const validateFirebaseIdToken = (req, res, next) => {
   console.log('Check if request is authorized with Firebase ID token');
 
@@ -44,14 +40,11 @@ const validateFirebaseIdToken = (req, res, next) => {
   let idToken;
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
     console.log('Found "Authorization" header');
-    // Read the ID Token from the Authorization header.
     idToken = req.headers.authorization.split('Bearer ')[1];
   } else if(req.cookies) {
     console.log('Found "__session" cookie');
-    // Read the ID Token from cookie.
     idToken = req.cookies.__session;
   } else {
-    // No cookie
     res.status(403).send('Unauthorized');
     return;
   }
@@ -72,7 +65,4 @@ app.get('/api', (req, res) => {
   res.send('Hello World');
 });
 
-// This HTTPS endpoint can only be accessed by your Firebase Users.
-// Requests need to be authorized by providing an `Authorization` HTTP header
-// with value `Bearer <Firebase ID Token>`.
 exports.app = functions.https.onRequest(app);
