@@ -34,7 +34,6 @@ $ci-primary: (
     A700: $light-primary-text,
   ),
 );
-
 $ci-accent: (
   50: #e1f4f1,
   100: #b3e4db,
@@ -67,7 +66,6 @@ $ci-accent: (
     A700: $light-primary-text,
   ),
 );
-
 $ci-app-primary: mat-palette($ci-primary);
 $ci-app-accent: mat-palette($ci-accent);
 $ci-app-theme: mat-light-theme($ci-app-primary, $ci-app-accent);
