@@ -8,7 +8,7 @@ export default class PdfGenerator {
   constructor() {
     this.data = {
       name: 'John Doe',
-      times: [...Array(30)].map(() => ({
+      times: [...Array(31)].map(() => ({
         date: '15. 5. 2018',
         start: '08:00',
         end: '17:00',
@@ -26,7 +26,7 @@ export default class PdfGenerator {
   public run(): Promise<string> {
     const content = fs.readFileSync('invoice-tpl.html', 'utf-8');
     const output = mustache.render(content, this.data);
-    const options = { format: 'Letter' };
+    const options = { format: 'A4', border: '10mm', header: { height: '25mm' }, footer: { height: '15mm'} };
 
     return new Promise<string>((resolve, reject) => {
       pdf.create(output, options).toFile('./report.pdf', (err, res) => {
