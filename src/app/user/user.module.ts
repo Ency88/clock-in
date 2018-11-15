@@ -6,9 +6,10 @@ import { UserRoutingModule } from './user-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { HoursMinutesSeconds } from './shared/pipes/hours.minutes.seconds.pipe';
+import { UserMonthlyDetailComponent } from './pages/monthly-detail/user-monthly-detail.component';
 
 @NgModule({
   imports: [CommonModule, UserRoutingModule, LayoutModule, ReactiveFormsModule, MaterialModule],
-  declarations: [UserDashboardComponent, HoursMinutesSeconds],
+  declarations: [UserDashboardComponent, HoursMinutesSeconds, UserMonthlyDetailComponent],
 })
 export class UserModule {}
