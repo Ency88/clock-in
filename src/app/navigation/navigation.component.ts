@@ -15,7 +15,7 @@ export class NavigationComponent {
   @ViewChild('drawer')
   public drawer;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver
+  public isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(map(result => result.matches));
 

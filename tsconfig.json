@@ -8,9 +8,9 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es6",
+    "target": "es5",
     "typeRoots": ["node_modules/@types"],
-    "module": "commonjs",
+    "module": "es2015",
     "lib": ["es2017", "dom"]
   }
 }
