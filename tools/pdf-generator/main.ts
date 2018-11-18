@@ -1,4 +1,4 @@
-import PdfGenerator from './pdf-generator';
+import { PdfGenerator } from './pdf-generator';
 
 const pdfgenerator_instance = new PdfGenerator();
 
