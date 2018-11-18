@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { attendanceForUserMock } from './mocks/attendance-for-user.mock';
+import { TimeLoggingMock } from './mocks/time-logging.mock';
 
 @Injectable({
   providedIn: 'root',
@@ -7,32 +9,19 @@ import { Observable, of } from 'rxjs';
 export class UserTimesService {
   constructor() {}
 
-  getAttendanceForUser(userId: string, fromDate: Date, toDate: Date): Observable<any> {
-    return of([
-      {
-        day: 'MO',
-        date: new Date(2018, 10, 28),
-        timeRecords: [
-          { from: new Date(2018, 10, 28, 7, 15), to: new Date(2018, 10, 28, 10, 55), type: 'work' },
-          {
-            from: new Date(2018, 10, 28, 11, 30),
-            to: new Date(2018, 10, 28, 15, 10),
-            type: 'work',
-          },
-        ],
-      },
-      {
-        day: 'TU',
-        date: new Date(2018, 10, 28),
-        timeRecords: [
-          { from: new Date(2018, 10, 28, 7, 30), to: new Date(2018, 10, 28, 9, 30), type: 'work' },
-          {
-            from: new Date(2018, 10, 28, 10, 30),
-            to: new Date(2018, 10, 28, 11, 38),
-            type: 'work',
-          },
-        ],
-      },
-    ]);
+  public getAttendanceForUser(userId: string, fromDate: Date, toDate: Date): Observable<any> {
+    return of(attendanceForUserMock);
+  }
+
+  public isUserWorking(userId: string): Observable<boolean> {
+    return TimeLoggingMock.isUserWorking();
+  }
+
+  public toggleWork(userId: string): Observable<number> {
+    return TimeLoggingMock.toggleWorkStatus();
+  }
+
+  public getUserDayTarget(userId: string): Observable<number> {
+    return TimeLoggingMock.getUserDayTarget();
   }
 }

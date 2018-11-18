@@ -7,6 +7,7 @@ import {
   MatInputModule,
   MatListModule,
   MatMenuModule,
+  MatProgressSpinnerModule,
   MatSidenavModule,
   MatSnackBarModule,
   MatToolbarModule,
@@ -25,6 +26,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatMenuModule,
     MatInputModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
     MatExpansionModule,
   ],
   exports: [
@@ -38,6 +40,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatMenuModule,
     MatInputModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule,
     MatExpansionModule,
   ],
 })
