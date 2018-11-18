@@ -16,7 +16,6 @@ import { LoginComponent } from './ui/login/login.component';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
-import { TimeLoggerService } from './services/time.logger.service';
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent, LoginComponent],
@@ -32,7 +31,7 @@ import { TimeLoggerService } from './services/time.logger.service';
     AppRoutingModule,
     ReactiveFormsModule,
   ],
-  providers: [AuthGuard, AuthService, TimeLoggerService],
+  providers: [AuthGuard, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

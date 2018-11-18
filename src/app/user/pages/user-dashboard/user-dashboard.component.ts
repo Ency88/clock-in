@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TimeLoggerService } from '../../../services/time.logger.service';
+import { UserTimesService } from '../../shared/user-times.service';
+import { Observable } from 'rxjs';
+import { WorkingStatus } from '../../components/time-logger/time-logger.component';
 
 @Component({
   selector: 'ci-user-dashboard',
@@ -7,24 +9,20 @@ import { TimeLoggerService } from '../../../services/time.logger.service';
   styleUrls: ['./user-dashboard.component.scss'],
 })
 export class UserDashboardComponent implements OnInit {
-  public date: Date;
-  public formattedDate = '';
-  constructor(public timeLoggerService: TimeLoggerService) {}
+  public isUserWorking: Observable<boolean>;
+  public userTarget: Observable<number>;
+  public alreadyDone: Observable<number>;
 
-  ngOnInit() {
-    this.date = new Date();
-    this.formattedDate =
-      this.date.getDate() + '.' + this.date.getMonth() + '.' + this.date.getFullYear();
+  constructor(private timeService: UserTimesService) {}
+
+  ngOnInit(): void {
+    this.isUserWorking = this.timeService.isUserWorking('userId');
+    this.userTarget = this.timeService.getUserDayTarget('userId');
   }
 
-  processTracking() {
-    this.timeLoggerService.toggleTracking();
-    const subscription = this.timeLoggerService.intervalObservable.subscribe(() => {
-      this.timeLoggerService.timer++;
-      this.timeLoggerService.calculateProgressValue();
-      if (this.timeLoggerService.tracking === false) {
-        subscription.unsubscribe();
-      }
-    });
+  public handleChangeWorkStatus(): void {
+    this.alreadyDone = this.timeService.toggleWork('userId');
+    this.isUserWorking = this.timeService.isUserWorking('userId');
+    this.userTarget = this.timeService.getUserDayTarget('userId');
   }
 }
