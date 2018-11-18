@@ -39,11 +39,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 ## PDF-Generator
 Install dependencies: `npm install -g ts-node typescript`  
-Generate example PDF:
-```
-cd tools/pdf-generator/
-ts-node main.ts
-```
+Generate example PDF: `npm run generate-pdf:local`
 
 ---
 
