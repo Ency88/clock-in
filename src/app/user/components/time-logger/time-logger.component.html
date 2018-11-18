@@ -1,0 +1,6 @@
+<div class="container">
+  <div>{{ formattedDate }}</div>
+  <mat-progress-spinner class="progress-spinner" mode="determinate" [value]="percentageOfDone"></mat-progress-spinner>
+  <button type="button" color="accent" mat-raised-button (click)="onWorkStatusChanged()">{{ isWorking ? 'Stop working' : 'Start Working' }}</button>
+</div>
+
