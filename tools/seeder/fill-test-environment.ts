@@ -1,29 +1,30 @@
 import * as firebase from 'firebase';
-const production = require('./production.ts');
+import {environment} from '../../src/environments/environment';
+import * as seeds from './seeds';
 
-firebase.initializeApp(production.config);
+firebase.initializeApp(environment.firebase);
 const firestore = firebase.firestore();
 firestore.settings({ timestampsInSnapshots: true });
 
 firebase
   .auth()
-  .createUserWithEmailAndPassword(production.testUser1.email, production.testUser1.password)
+  .createUserWithEmailAndPassword(seeds.testUser1.email, seeds.testUser1.password)
   .then(user => console.log(user))
   .catch(error => console.error(error));
 firebase
   .auth()
-  .createUserWithEmailAndPassword(production.testUser2.email, production.testUser2.password)
+  .createUserWithEmailAndPassword(seeds.testUser2.email, seeds.testUser2.password)
   .then(user => console.log(user))
   .catch(error => console.error(error));
 firebase
   .auth()
-  .createUserWithEmailAndPassword(production.testUser3.email, production.testUser2.password)
+  .createUserWithEmailAndPassword(seeds.testUser3.email, seeds.testUser2.password)
   .then(user => console.log(user))
   .catch(error => console.error(error));
 
 firestore
   .collection('/times')
-  .add(production.workingDay1)
+  .add(seeds.workingDay1)
   .then(() => {
     console.log('Row workingDay1 created successfully');
   })
@@ -33,7 +34,7 @@ firestore
 
 firestore
   .collection('/times')
-  .add(production.workingDay2)
+  .add(seeds.workingDay2)
   .then(() => {
     console.log('Row workingDay2 created successfully');
   })
@@ -43,7 +44,7 @@ firestore
 
 firestore
   .collection('/times')
-  .add(production.workingDay3)
+  .add(seeds.workingDay3)
   .then(() => {
     console.log('Row workingDay3 created successfully');
   })
@@ -53,7 +54,7 @@ firestore
 
 firestore
   .collection('/times')
-  .add(production.workingDay4)
+  .add(seeds.workingDay4)
   .then(() => {
     console.log('Row workingDay4 created successfully');
   })
@@ -63,7 +64,7 @@ firestore
 
 firestore
   .collection('/times')
-  .add(production.workingDay5)
+  .add(seeds.workingDay5)
   .then(() => {
     console.log('Row workingDay5 created successfully');
   })
@@ -73,7 +74,7 @@ firestore
 
 firestore
   .collection('/times')
-  .add(production.workingDay6)
+  .add(seeds.workingDay6)
   .then(() => {
     console.log('Row workingDay6 created successfully');
   })
@@ -83,7 +84,7 @@ firestore
 
 firestore
   .collection('/times')
-  .add(production.workingDay7)
+  .add(seeds.workingDay7)
   .then(() => {
     console.log('Row workingDay7 created successfully');
   })
@@ -93,7 +94,7 @@ firestore
 
 firestore
   .collection('/times')
-  .add(production.workingDay8)
+  .add(seeds.workingDay8)
   .then(() => {
     console.log('Row workingDay8 created successfully');
   })
@@ -103,7 +104,7 @@ firestore
 
 firestore
   .collection('/times')
-  .add(production.workingDay9)
+  .add(seeds.workingDay9)
   .then(() => {
     console.log('Row workingDay9 created successfully');
   })
@@ -113,7 +114,7 @@ firestore
 
 firestore
   .collection('/times')
-  .add(production.workingDay10)
+  .add(seeds.workingDay10)
   .then(() => {
     console.log('Row workingDay10 created successfully');
   })

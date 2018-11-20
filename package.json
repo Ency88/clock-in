@@ -12,7 +12,7 @@
     "prettier": "prettier \"**/*.ts\" \"**/*.scss\" \"**/*.json\"",
     "prettier-fix": "npm run prettier -- --write",
     "pullrequest-check": "npm run lint && npm run test && ng build --prod",
-    "fill-test-environment": "ts-node fill-test-environment.ts",
+    "fill-test-environment": "ts-node --project tools/pdf-generator/tsconfig.json tools/seeder/fill-test-environment.ts",
     "generate-pdf:local": "ts-node --project tools/pdf-generator/tsconfig.json tools/pdf-generator/main.ts"
   },
   "private": true,

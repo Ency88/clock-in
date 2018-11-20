@@ -1,12 +1,3 @@
-export const config = {
-  apiKey: 'KEY',
-  authDomain: 'AUTH-DOMAIN',
-  databaseURL: 'DATABASE-URL',
-  projectId: 'PROJECT-ID',
-  storageBucket: 'STORAGE-BUCKET',
-  messagingSenderId: 'MESSAGING-SENDER-ID',
-};
-
 export const testUser1 = {
   email: 'admin@senacor.com',
   password: 'admin123',
