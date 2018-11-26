@@ -48,43 +48,4 @@ export default class Seeder {
 
     return promise.Promise.resolve(uid);
   }
-
-  // private mockUser(user): Observable<string> {
-  //   return of(user).pipe(
-  //     switchMap(({ email, password }) =>
-  //       from(firebase.auth().createUserWithEmailAndPassword(email, password))
-  //     ),
-  //     map(({ user: { uid } }) => uid),
-  //     tap(uid => console.log(`Created user: ${uid}`))
-  //   );
-  // }
-  //
-  // private mockWorktimesForUser(uid: string, docs: WorktimeModel[]): Observable<string> {
-  //   return from(docs).pipe(
-  //     mergeMap(({ timestamp, type }) =>
-  //       db.collection('worktimes').add({
-  //         timestamp,
-  //         type,
-  //         uid,
-  //       })
-  //     ),
-  //     catchError(err => throwError(err)),
-  //     map(({ id }) => id),
-  //     tap(id => console.log(`Created worktime: ${id}`))
-  //   );
-  // }
-  //
-  // private mockSubmissionsForUser(uid: string, docs: SubmissionModel[]): Observable<string> {
-  //   return from(docs).pipe(
-  //     mergeMap(({ period }) =>
-  //       db.collection('submissions').add({
-  //         uid,
-  //         period,
-  //       })
-  //     ),
-  //     catchError(err => throwError(err)),
-  //     map(({ id }) => id),
-  //     tap(id => console.log(`Created submission: ${id}`))
-  //   );
-  // }
 }
