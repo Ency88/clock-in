@@ -1,7 +1,7 @@
 import { WorktimeTypeEnum } from './worktime-type.enum';
 
 export interface WorktimeModel {
-  timestamp: Date;
+  timestamp: string;
   type: WorktimeTypeEnum;
   uid: string;
 }
