@@ -22,7 +22,7 @@ export class AuthService {
     return from(this.fireAuth.auth.signOut());
   }
 
-  getCurrentUser(): Observable<any> {
+  getCurrentUser(): Observable<User> {
     return this.user;
   }
 }
