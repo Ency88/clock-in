@@ -1,5 +1,5 @@
 export interface UserModel {
-  uid: Date;
+  uid: string;
   email: string;
   dayTarget: number;
   monthTarget: number;
