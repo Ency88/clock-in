@@ -12,8 +12,8 @@ export const addUserToFirestoreOnCreate = functions.auth.user().onCreate((user: 
   const userData: UserModel = {
     uid: user.uid,
     email: user.email,
-    dayTarget: 28800000,
-    monthTarget: 1728000000
+    dayTarget: 28800,
+    monthTarget: 576000
   };
 
   admin
