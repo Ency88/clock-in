@@ -21,8 +21,4 @@ export class AuthService {
   logout(): Observable<any> {
     return from(this.fireAuth.auth.signOut());
   }
-
-  getCurrentUser(): Observable<User> {
-    return this.user;
-  }
 }
