@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserTimesService } from '../../shared/user-times.service';
 import { Observable } from 'rxjs';
-import { WorkingStatus } from '../../components/time-logger/time-logger.component';
+import { AuthService } from '../../../services/auth.service';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'ci-user-dashboard',
@@ -13,16 +14,21 @@ export class UserDashboardComponent implements OnInit {
   public userTarget: Observable<number>;
   public alreadyDone: Observable<number>;
 
-  constructor(private timeService: UserTimesService) {}
+  constructor(private timeService: UserTimesService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.isUserWorking = this.timeService.isUserWorking('userId');
-    this.userTarget = this.timeService.getUserDayTarget('userId');
+    this.isUserWorking = this.authService.user
+      .pipe(switchMap(({ uid }) => this.timeService.isUserWorking(uid)));
+    this.userTarget = this.authService.user
+      .pipe(switchMap(({ uid }) => this.timeService.getUserDayTarget(uid)));
+    this.alreadyDone = this.authService.user
+      .pipe(switchMap(({ uid }) => this.timeService.getAlreadyDone(uid)));
   }
 
   public handleChangeWorkStatus(): void {
-    this.alreadyDone = this.timeService.toggleWork('userId');
-    this.isUserWorking = this.timeService.isUserWorking('userId');
-    this.userTarget = this.timeService.getUserDayTarget('userId');
+    this.alreadyDone = this.authService.user
+      .pipe(switchMap(({ uid }) => this.timeService.toggleWork(uid)));
+    this.isUserWorking = this.authService.user
+      .pipe(switchMap(({ uid }) => this.timeService.isUserWorking(uid)));
   }
 }
