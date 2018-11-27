@@ -18,4 +18,9 @@ export default [
     worktimes: worktimes[2],
     submissions: submissions[2],
   },
+  {
+    user: users[3],
+    worktimes: worktimes[3],
+    submissions: submissions[3],
+  },
 ];
