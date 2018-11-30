@@ -6,6 +6,10 @@ import { UserMonthlyDetailComponent } from './pages/monthly-detail/user-monthly-
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'dashboard',
+  },
+  {
     path: 'dashboard',
     component: UserDashboardComponent,
   },
