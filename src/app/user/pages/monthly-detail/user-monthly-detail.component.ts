@@ -80,4 +80,47 @@ export class UserMonthlyDetailComponent implements OnInit {
     this.myDate = ctrlValue.toDate();
     this.onDateChange();
   }
+  
+  onDateChange() {
+    this.showSpinner = true;
+    let tempWorkTime;
+    this.authService.user.pipe(
+      switchMap(user => this.userTimeService.getAttendanceForUser(user.uid, this.myDate, new Date()))
+    ).subscribe(r => {
+      r.forEach(e => {
+        this.worktimes = [e.data(), ...this.worktimes];
+        if (tempWorkTime == null) {
+          tempWorkTime = e.data();
+          this.groupedWorkTimes.set(this.headerText(e.data()), e.data());
+        } else {
+          if (this.headerText(tempWorkTime) === this.headerText(e.data())) {
+            this.groupedWorkTimes.set(this.headerText(tempWorkTime), e.data());
+          }
+          tempWorkTime = e.data();
+          this.showSpinner = false;
+        }
+      });
+    };
+  }
+
+  getKeyValuePairs(workTime: String) {
+    const result: WorktimeModel[] = [];
+    this.worktimes.forEach(e => {
+      if (this.headerText(e) === workTime) {
+        result.push(e);
+      }
+    });
+    return result.reverse();
+  }
+
+  getDateFromNumberTimestamp(timestamp){
+    const timestampDate = new Date(timestamp.seconds * 1000);
+    let zero = '';
+    if (timestampDate.getMinutes().toString().length === 1){
+      zero = '0';
+    }
+    return (
+      timestampDate.getHours() + ':' + zero + timestampDate.getMinutes()
+    );
+  }
 }
