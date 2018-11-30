@@ -64,4 +64,20 @@ export class UserMonthlyDetailComponent implements OnInit {
       headerDate.getFullYear()
     );
   }
+  
+  
+  chosenYearHandler(normalizedYear: Moment) {
+    const ctrlValue = this.date.value;
+    ctrlValue.year(normalizedYear.year());
+    this.date.setValue(ctrlValue);
+  }
+
+  chosenMonthHandler(normlizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
+    const ctrlValue = this.date.value;
+    ctrlValue.month(normlizedMonth.month());
+    this.date.setValue(ctrlValue);
+    datepicker.close();
+    this.myDate = ctrlValue.toDate();
+    this.onDateChange();
+  }
 }
