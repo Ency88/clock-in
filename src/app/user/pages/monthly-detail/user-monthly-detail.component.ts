@@ -36,14 +36,4 @@ export class UserMonthlyDetailComponent implements OnInit {
       attendance.date.getFullYear()
     );
   }
-
-  calculateTotalTime(timeRecords: TimeRecord[]) {
-    let result = 0;
-    timeRecords.forEach(value => (result += value.to.getTime() - value.from.getTime()));
-    result = result / 1000;
-    const hours = Math.floor(result / 3600);
-    const minutes = Math.floor((result % 3600) / 60);
-
-    return hours + ' hrs, ' + minutes + ' mins';
-  }
 }
