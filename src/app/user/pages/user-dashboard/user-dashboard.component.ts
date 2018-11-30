@@ -17,18 +17,23 @@ export class UserDashboardComponent implements OnInit {
   constructor(private timeService: UserTimesService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.isUserWorking = this.authService.user
-      .pipe(switchMap(({ uid }) => this.timeService.isUserWorking(uid)));
-    this.userTarget = this.authService.user
-      .pipe(switchMap(({ uid }) => this.timeService.getUserDayTarget(uid)));
-    this.alreadyDone = this.authService.user
-      .pipe(switchMap(({ uid }) => this.timeService.getAlreadyDone(uid)));
+    this.isUserWorking = this.authService.user.pipe(
+      switchMap(({ uid }) => this.timeService.isUserWorking(uid))
+    );
+    this.userTarget = this.authService.user.pipe(
+      switchMap(({ uid }) => this.timeService.getUserDayTarget(uid))
+    );
+    this.alreadyDone = this.authService.user.pipe(
+      switchMap(({ uid }) => this.timeService.getAlreadyDone(uid))
+    );
   }
 
   public handleChangeWorkStatus(): void {
-    this.alreadyDone = this.authService.user
-      .pipe(switchMap(({ uid }) => this.timeService.toggleWork(uid)));
-    this.isUserWorking = this.authService.user
-      .pipe(switchMap(({ uid }) => this.timeService.isUserWorking(uid)));
+    this.alreadyDone = this.authService.user.pipe(
+      switchMap(({ uid }) => this.timeService.toggleWork(uid))
+    );
+    this.isUserWorking = this.authService.user.pipe(
+      switchMap(({ uid }) => this.timeService.isUserWorking(uid))
+    );
   }
 }
