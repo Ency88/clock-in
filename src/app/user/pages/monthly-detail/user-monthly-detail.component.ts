@@ -1,39 +1,67 @@
-import { Component, OnInit } from '@angular/core';
-import { switchMap } from 'rxjs/operators';
-import { Attendance } from '../../../models/attendance.model';
-import { TimeRecord } from '../../../models/time.record.model';
-import { TimeRecordEnum } from '../../../models/time.record.enum';
-import { Observable } from 'rxjs';
-import { UserTimesService } from '../../shared/user-times.service';
-import { AuthService } from '../../../services/auth.service';
+import {Component, OnInit} from '@angular/core';
+import {switchMap} from 'rxjs/operators';
+import {UserTimesService} from '../../shared/user-times.service';
+import {AuthService} from '../../../services/auth.service';
+import {WorktimeModel} from '../../../models/worktime.model';
+import {FormControl} from '@angular/forms';
+import {MatDatepicker} from '@angular/material';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import * as _moment from 'moment';
+import {Moment} from 'moment';
+const moment = _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'MM/YYYY',
+  },
+  display: {
+    dateInput: 'MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
   selector: 'ci-user-monthly-detail',
   templateUrl: './user-monthly-detail.component.html',
   styleUrls: ['./user-monthly-detail.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class UserMonthlyDetailComponent implements OnInit {
   public panelOpenState: boolean;
-  public workType: TimeRecordEnum = TimeRecordEnum.work;
-  public attendances: Observable<any>;
+  public worktimes: WorktimeModel[] = [];
+  public groupedWorkTimes = new Map<String, WorktimeModel>();
+  public date = new FormControl(moment());
+  public myDate = new Date();
+  public showSpinner = true;
 
-  constructor(private userTimeService: UserTimesService, private authService: AuthService) {}
-
-  ngOnInit(): void {
-    this.attendances = this.authService.user.pipe(
-      switchMap(user => this.userTimeService.getAttendanceForUser(user.uid, new Date(), new Date()))
-    );
+  constructor(private userTimeService: UserTimesService, private authService: AuthService) {
   }
 
-  headerText(attendance: Attendance) {
+  ngOnInit(): void {
+    this.authService.user.pipe(
+      switchMap(user => this.userTimeService.getAttendanceForUser(user.uid, this.myDate, new Date()))
+    ).subscribe(r => {
+      r.forEach(e => {
+        this.worktimes = [e.data(), ...this.worktimes];
+      });
+      this.showSpinner = false;
+    });
+  }
+
+  headerText(worktime) {
+    const headerDate = new Date(worktime.timestamp.seconds * 1000);
     return (
-      attendance.day +
-      ' ' +
-      attendance.date.getDate() +
+      headerDate.getDate() +
       '.' +
-      attendance.date.getMonth() +
+      headerDate.getMonth() +
       '.' +
-      attendance.date.getFullYear()
+      headerDate.getFullYear()
     );
   }
 }
