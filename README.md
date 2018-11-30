@@ -36,6 +36,10 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+## Seeder
+
+To seed firebase database run `npm run seed`  
+Directory /collections contains all mock data.
 
 ## PDF-Generator
 Install dependencies: `npm install -g ts-node typescript`  

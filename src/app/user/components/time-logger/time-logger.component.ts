@@ -23,11 +23,22 @@ export class TimeLoggerComponent {
   @Output()
   public workTrackingChanged = new EventEmitter<WorkingStatus>();
 
+  /**
+   * Get formatted current date.
+   */
   get formattedDate() {
     return new Date().toDateString();
   }
 
+  /**
+   * Get percentage for chart.
+   */
   get percentageOfDone() {
+    // if overtime
+    if (this.alreadyDone > this.dayTarget) {
+      return 100;
+    }
+    // calculate percentage
     let result = 0;
     if (this.dayTarget !== 0) {
       result = Math.round((this.alreadyDone * 100) / this.dayTarget);
@@ -35,6 +46,33 @@ export class TimeLoggerComponent {
     return result;
   }
 
+  /**
+   * Get formatted day target time.
+   */
+  get target() {
+    const time = new Date(0, 0, 0, 0, 0, 0, 0);
+    time.setSeconds(this.dayTarget);
+    let text = time.getHours() ? `${time.getHours()}h ` : '';
+    text += time.getMinutes() ? `${time.getMinutes()}min` : '';
+    return text;
+  }
+
+  /**
+   * Get formatted already done time.
+   */
+  get done() {
+    // if overtime, display it
+    const seconds = this.alreadyDone > this.dayTarget ? this.alreadyDone - this.dayTarget : this.alreadyDone;
+    const time = new Date(0, 0, 0, 0, 0, 0, 0);
+    time.setSeconds(seconds);
+    let text = time.getHours() ? `${time.getHours()}h ` : '';
+    text += time.getMinutes() ? `${time.getMinutes()}min` : '';
+    return text;
+  }
+
+  /**
+   * Emit working status.
+   */
   public onWorkStatusChanged() {
     if (this.isWorking) {
       this.workTrackingChanged.emit(WorkingStatus.WorkStopped);
