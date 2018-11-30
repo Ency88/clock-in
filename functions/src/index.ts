@@ -5,6 +5,7 @@ import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
 import UserRecord = admin.auth.UserRecord;
 import { UserModel } from '../../src/app/models/user.model';
+import { apiRoute } from './routes/Api.route';
 
 admin.initializeApp();
 
@@ -71,8 +72,6 @@ const validateFirebaseIdToken = (req, res, next) => {
 app.use(cors({ origin: true }));
 app.use(cookieParser());
 app.use(validateFirebaseIdToken);
-app.get('/api', (req, res) => {
-  res.send('Hello World');
-});
+app.get('/api', apiRoute);
 
 exports.app = functions.https.onRequest(app);
