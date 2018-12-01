@@ -80,6 +80,21 @@ export class UserTimesService {
   }
 
   /**
+   * Get user's day time target in seconds
+   */
+  public getUserMonthTarget(userId: string): Observable<number> {
+    return from(
+      this.database
+        .collection('users')
+        .where('uid', '==', userId)
+        .get()
+    ).pipe(
+      catchError(err => throwError(err)),
+      map(({ size, docs }) => (size ? docs[0].data().monthTarget : 0))
+    );
+  }
+
+  /**
    * Get user's already done in seconds
    */
   public getAlreadyDone(userId: string): Observable<number> {

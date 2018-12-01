@@ -38,6 +38,12 @@
                 </mat-expansion-panel>
               </mat-accordion>
             </div>
+            <div>
+              <br>
+              <button type="button" color="{{monthlyTargetReached ? 'primary' : 'accent'}}" mat-raised-button (click)="onSignTheMonth()">
+                {{'Sign' }}
+              </button>
+            </div>
           </mat-card-content>
         </ng-template>
       </mat-card>

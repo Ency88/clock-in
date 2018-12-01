@@ -4,11 +4,12 @@ import { UserTimesService } from '../../shared/user-times.service';
 import { AuthService } from '../../../services/auth.service';
 import { WorktimeModel } from '../../../models/worktime.model';
 import { FormControl } from '@angular/forms';
-import { MatDatepicker } from '@angular/material';
+import {MatDatepicker, MatDialog, MatDialogConfig} from '@angular/material';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import * as _moment from 'moment';
 import { Moment } from 'moment';
+import {SignTheMonthDialogComponent} from '../../components/sign-the-month-dialog/sign-the-month-dialog.component';
 const moment = _moment;
 
 export const MY_FORMATS = {
@@ -39,8 +40,12 @@ export class UserMonthlyDetailComponent implements OnInit {
   public date = new FormControl(moment());
   public myDate = new Date();
   public showSpinner = true;
+  public monthlyTargetReached = false;
+  public onSign = false;
+  public userMonthTarget;
+  public alreadyDoneTarget;
 
-  constructor(private userTimeService: UserTimesService, private authService: AuthService) {}
+  constructor(private userTimeService: UserTimesService, private authService: AuthService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.authService.user
@@ -99,6 +104,8 @@ export class UserMonthlyDetailComponent implements OnInit {
             tempWorkTime = e.data();
             this.showSpinner = false;
           }
+
+          this.alreadyDoneTarget += e.data().timestamp.seconds;
         });
       });
   }
@@ -120,5 +127,37 @@ export class UserMonthlyDetailComponent implements OnInit {
       zero = '0';
     }
     return timestampDate.getHours() + ':' + zero + timestampDate.getMinutes();
+  }
+
+  onSignTheMonth(){
+    this.onSign = !this.onSign;
+    this.authService.user
+      .pipe(
+        switchMap(user =>
+          this.userTimeService.getUserMonthTarget(user.uid)
+        )
+      )
+      .subscribe(target => {
+        this.userMonthTarget = target;
+
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.autoFocus = true;
+        console.log('Month target ' + this.userMonthTarget);
+        console.log('Already done ' + this.alreadyDoneTarget);
+        if (this.alreadyDoneTarget >= this.userMonthTarget){
+          dialogConfig.data = {
+            title: 'Do you want to sign this month? After signing the month any changes will be possible'
+          };
+        } else {
+          dialogConfig.data = {
+            title: 'You have not reached month hours target. Do you want to really sign it?' +
+            ' After signing the month any changes will be possible'
+          };
+        }
+
+
+        this.dialog.open(SignTheMonthDialogComponent, dialogConfig);
+      });
+
   }
 }
