@@ -30,6 +30,25 @@ export class UserTimesService {
     ).pipe(catchError(err => throwError(err)));
   }
 
+  public getAttendanceForUserInMonth(
+    userId: string,
+    fromDate: Date,
+    toDate: Date
+  ): Observable<number> {
+    return from(
+      this.database
+        .collection('worktimes')
+        .where('uid', '==', userId)
+        .where('timestamp', '>=', fromDate)
+        .where('timestamp', '<=', toDate)
+        .orderBy('timestamp', 'asc')
+        .get()
+    ).pipe(
+      catchError(err => throwError(err)),
+      map(({ size, docs }) => docs.data().forEach())
+    );
+  }
+
   /**
    * Get user's working status
    */
@@ -76,6 +95,21 @@ export class UserTimesService {
     ).pipe(
       catchError(err => throwError(err)),
       map(({ size, docs }) => (size ? docs[0].data().dayTarget : 0))
+    );
+  }
+
+  /**
+   * Get user's day time target in seconds
+   */
+  public getUserMonthTarget(userId: string): Observable<number> {
+    return from(
+      this.database
+        .collection('users')
+        .where('uid', '==', userId)
+        .get()
+    ).pipe(
+      catchError(err => throwError(err)),
+      map(({ size, docs }) => (size ? docs[0].data().monthTarget : 0))
     );
   }
 
