@@ -30,6 +30,24 @@ export class UserTimesService {
     ).pipe(catchError(err => throwError(err)));
   }
 
+  public getAttendanceForUserInMonth(userId: string, fromDate: Date, toDate: Date): Observable<number> {
+    return from(
+      this.database
+        .collection('worktimes')
+        .where('uid', '==', userId)
+        .where('timestamp', '>=', fromDate)
+        .where('timestamp', '<=', toDate)
+        .orderBy('timestamp', 'asc')
+        .get()
+    ).pipe(
+      catchError(err => throwError(err)),
+      map(
+        ({size, docs}) =>
+          docs.data().forEach()
+      )
+    );
+  }
+
   /**
    * Get user's working status
    */
