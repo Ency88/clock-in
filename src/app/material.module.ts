@@ -12,7 +12,8 @@ import {
   MatSnackBarModule,
   MatToolbarModule,
   MatDatepickerModule,
-  MatNativeDateModule, MatDialogModule,
+  MatNativeDateModule,
+  MatDialogModule,
 } from '@angular/material';
 import { MatExpansionModule } from '@angular/material/expansion';
 

@@ -30,7 +30,11 @@ export class UserTimesService {
     ).pipe(catchError(err => throwError(err)));
   }
 
-  public getAttendanceForUserInMonth(userId: string, fromDate: Date, toDate: Date): Observable<number> {
+  public getAttendanceForUserInMonth(
+    userId: string,
+    fromDate: Date,
+    toDate: Date
+  ): Observable<number> {
     return from(
       this.database
         .collection('worktimes')
@@ -41,10 +45,7 @@ export class UserTimesService {
         .get()
     ).pipe(
       catchError(err => throwError(err)),
-      map(
-        ({size, docs}) =>
-          docs.data().forEach()
-      )
+      map(({ size, docs }) => docs.data().forEach())
     );
   }
 
