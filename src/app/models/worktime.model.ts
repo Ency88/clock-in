@@ -4,4 +4,6 @@ export interface WorktimeModel {
   timestamp: Date;
   type: WorktimeTypeEnum;
   uid: string;
+  latitude: number;
+  longitude: number;
 }
