@@ -113,6 +113,7 @@ export class UserMonthlyDetailComponent implements OnInit {
 
           this.alreadyDoneTarget += e.data().timestamp.seconds;
         });
+        this.showSpinner = false;
       });
   }
 
