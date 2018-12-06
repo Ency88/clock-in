@@ -8,7 +8,9 @@
           </mat-card-title>
         </mat-card-header>
         <div *ngIf="showSpinner; else dashboardContent">
-          <div><mat-spinner></mat-spinner></div>
+          <div class="loader">
+            <mat-spinner></mat-spinner>
+          </div>
         </div>
         <ng-template #dashboardContent>
           <mat-card-content class="dashboard-card-content">
