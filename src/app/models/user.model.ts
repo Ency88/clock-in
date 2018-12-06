@@ -3,4 +3,5 @@ export interface UserModel {
   email: string;
   dayTarget: number;
   monthTarget: number;
+  isLocation: boolean;
 }
