@@ -46,6 +46,7 @@ export class UserMonthlyDetailComponent implements OnInit {
   public onSign = false;
   public userMonthTarget;
   public alreadyDoneTarget: number;
+  public allWorktimes = [];
 
   constructor(
     private userTimeService: UserTimesService,
@@ -65,6 +66,19 @@ export class UserMonthlyDetailComponent implements OnInit {
           this.worktimes = [e.data(), ...this.worktimes];
         });
         this.showSpinner = false;
+      });
+
+    this.authService.user
+      .pipe(
+        switchMap(user =>
+          this.userTimeService.getAttendanceForUser(user.uid, new Date(2018, 1, 1), new Date())
+        )
+      )
+      .subscribe(r => {
+        r.forEach(e => {
+          const date = new Date(e.data().timestamp.seconds*1000);
+          this.allWorktimes = [date.toISOString(), ...this.allWorktimes];
+        });
       });
   }
 
@@ -110,7 +124,6 @@ export class UserMonthlyDetailComponent implements OnInit {
             tempWorkTime = e.data();
             this.showSpinner = false;
           }
-
           this.alreadyDoneTarget += e.data().timestamp.seconds;
         });
         this.showSpinner = false;
@@ -195,5 +208,17 @@ export class UserMonthlyDetailComponent implements OnInit {
 
         this.dialog.open(SignTheMonthDialogComponent, dialogConfig);
       });
+  }
+
+  myFilter = (d: Date): boolean => {
+    d = new Date(d.toISOString());
+    const day = d.getDate(), month = d.getMonth(), year = d.getFullYear();
+    return this.allWorktimes.find(element => {
+      element = new Date(element);
+      const year_element = element.getFullYear();
+      const day_element = element.getDate();
+      const month_element = element.getMonth();
+      return year_element === year && day_element === day && month_element === month;
+    });
   }
 }
