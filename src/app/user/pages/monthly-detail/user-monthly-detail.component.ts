@@ -210,7 +210,7 @@ export class UserMonthlyDetailComponent implements OnInit {
       });
   }
 
-  myFilter(d: Date) {
+  myFilter = (d: Date) => {
     d = new Date(d.toISOString());
     const day = d.getDate(),
       month = d.getMonth(),
