@@ -76,7 +76,7 @@ export class UserMonthlyDetailComponent implements OnInit {
       )
       .subscribe(r => {
         r.forEach(e => {
-          const date = new Date(e.data().timestamp.seconds*1000);
+          const date = new Date(e.data().timestamp.seconds * 1000);
           this.allWorktimes = [date.toISOString(), ...this.allWorktimes];
         });
       });
@@ -212,7 +212,9 @@ export class UserMonthlyDetailComponent implements OnInit {
 
   myFilter = (d: Date): boolean => {
     d = new Date(d.toISOString());
-    const day = d.getDate(), month = d.getMonth(), year = d.getFullYear();
+    const day = d.getDate(),
+      month = d.getMonth(),
+      year = d.getFullYear();
     return this.allWorktimes.find(element => {
       element = new Date(element);
       const year_element = element.getFullYear();
@@ -220,5 +222,5 @@ export class UserMonthlyDetailComponent implements OnInit {
       const month_element = element.getMonth();
       return year_element === year && day_element === day && month_element === month;
     });
-  }
+  };
 }

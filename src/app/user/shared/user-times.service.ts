@@ -58,9 +58,8 @@ export class UserTimesService {
     lastMidnight.setHours(0, 0, 0, 0);
     return this.getAttendanceForUser(userId, lastMidnight, new Date()).pipe(
       catchError(err => throwError(err)),
-      map(
-        ({ size, docs }) =>
-          size ? docs[docs.length - 1].data().type === WorktimeTypeEnum.start : false
+      map(({ size, docs }) =>
+        size ? docs[docs.length - 1].data().type === WorktimeTypeEnum.start : false
       )
     );
   }
