@@ -222,5 +222,5 @@ export class UserMonthlyDetailComponent implements OnInit {
       const month_element = element.getMonth();
       return year_element === year && day_element === day && month_element === month;
     });
-  };
+  }
 }
