@@ -210,7 +210,7 @@ export class UserMonthlyDetailComponent implements OnInit {
       });
   }
 
-  myFilter = (d: Date): boolean => {
+  myFilter(d: Date) {
     d = new Date(d.toISOString());
     const day = d.getDate(),
       month = d.getMonth(),
@@ -222,5 +222,5 @@ export class UserMonthlyDetailComponent implements OnInit {
       const month_element = element.getMonth();
       return year_element === year && day_element === day && month_element === month;
     });
-  };
+  }
 }
