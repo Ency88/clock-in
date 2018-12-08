@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { from, Observable, throwError } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { from, Observable, of, throwError } from 'rxjs';
+import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import { WorktimeTypeEnum } from '../../models/worktime-type.enum';
+import { LocationService } from '../../services/location.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ import { WorktimeTypeEnum } from '../../models/worktime-type.enum';
 export class UserTimesService {
   private database;
 
-  constructor() {
+  constructor(private locationService: LocationService) {
     this.database = firebase.firestore();
     this.database.settings({ timestampsInSnapshots: true });
   }
@@ -28,6 +29,25 @@ export class UserTimesService {
         .orderBy('timestamp', 'asc')
         .get()
     ).pipe(catchError(err => throwError(err)));
+  }
+
+  public getAttendanceForUserInMonth(
+    userId: string,
+    fromDate: Date,
+    toDate: Date
+  ): Observable<number> {
+    return from(
+      this.database
+        .collection('worktimes')
+        .where('uid', '==', userId)
+        .where('timestamp', '>=', fromDate)
+        .where('timestamp', '<=', toDate)
+        .orderBy('timestamp', 'asc')
+        .get()
+    ).pipe(
+      catchError(err => throwError(err)),
+      map(({ size, docs }) => docs.data().forEach())
+    );
   }
 
   /**
@@ -49,16 +69,26 @@ export class UserTimesService {
    * Toggle user's working state and get user's time already done in seconds
    */
   public toggleWork(userId: string): Observable<number> {
-    return this.isUserWorking(userId).pipe(
-      switchMap(working =>
-        from(
+    return this.locationService.getCurrentPosition().pipe(
+      map(({ coords: { latitude, longitude } }) => ({ latitude, longitude })),
+      // if error getting position or user has disabled location use zeros
+      catchError(() => {
+        this.updateLocation(userId, false).subscribe();
+        return of({ latitude: 0, longitude: 0 });
+      }),
+      withLatestFrom(this.isUserWorking(userId)),
+      switchMap(([{ latitude, longitude }, working]) => {
+        this.updateLocation(userId, true).subscribe();
+        return from(
           this.database.collection('worktimes').add({
             timestamp: new Date(),
             type: working ? WorktimeTypeEnum.stop : WorktimeTypeEnum.start,
             uid: userId,
+            latitude,
+            longitude,
           })
-        )
-      ),
+        );
+      }),
       catchError(err => throwError(err)),
       switchMap(() => this.getAlreadyDone(userId))
     );
@@ -76,6 +106,21 @@ export class UserTimesService {
     ).pipe(
       catchError(err => throwError(err)),
       map(({ size, docs }) => (size ? docs[0].data().dayTarget : 0))
+    );
+  }
+
+  /**
+   * Get user's day time target in seconds
+   */
+  public getUserMonthTarget(userId: string): Observable<number> {
+    return from(
+      this.database
+        .collection('users')
+        .where('uid', '==', userId)
+        .get()
+    ).pipe(
+      catchError(err => throwError(err)),
+      map(({ size, docs }) => (size ? docs[0].data().monthTarget : 0))
     );
   }
 
@@ -112,5 +157,33 @@ export class UserTimesService {
         return total;
       })
     );
+  }
+
+  /**
+   * Set status of user's location tracking
+   */
+  public updateLocation(userId: string, enabled: boolean): Observable<boolean> {
+    return from(
+      this.database
+        .collection('users')
+        .where('uid', '==', userId)
+        .get()
+    ).pipe(
+      catchError(err => throwError(err)),
+      map(({ size, docs }) => size && docs[0].ref.update({ isLocation: enabled })),
+      map(() => enabled)
+    );
+  }
+
+  /**
+   * Get user's location status
+   */
+  public getLocationStatus(userId: string): Observable<boolean> {
+    return from(
+      this.database
+        .collection('users')
+        .where('uid', '==', userId)
+        .get()
+    ).pipe(map(({ size, docs }) => size && docs[0].data().isLocation));
   }
 }

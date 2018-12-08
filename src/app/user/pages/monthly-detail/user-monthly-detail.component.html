@@ -8,12 +8,14 @@
           </mat-card-title>
         </mat-card-header>
         <div *ngIf="showSpinner; else dashboardContent">
-          <div><mat-spinner></mat-spinner></div>
+          <div class="loader">
+            <mat-spinner></mat-spinner>
+          </div>
         </div>
         <ng-template #dashboardContent>
           <mat-card-content class="dashboard-card-content">
             <mat-form-field>
-              <input matInput [matDatepicker]="dp" placeholder="Month and Year" [formControl]="date">
+              <input matInput [max]="myDate" [matDatepicker]="dp" placeholder="Month and Year" [formControl]="date">
               <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
               <mat-datepicker #dp
                               startView="multi-year"
@@ -37,6 +39,12 @@
                                      (closed)="panelOpenState = false">
                 </mat-expansion-panel>
               </mat-accordion>
+            </div>
+            <div>
+              <br>
+              <button type="button" color="{{monthlyTargetReached ? 'primary' : 'accent'}}" mat-raised-button (click)="onSignTheMonth()">
+                {{'Sign' }}
+              </button>
             </div>
           </mat-card-content>
         </ng-template>

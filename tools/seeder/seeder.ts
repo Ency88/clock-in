@@ -42,6 +42,8 @@ export default class Seeder {
         timestamp: worktime.timestamp,
         type: worktime.type,
         uid,
+        latitude: worktime.latitude,
+        longitude: worktime.longitude,
       });
       console.log(`Created worktime: ${id}`);
     }

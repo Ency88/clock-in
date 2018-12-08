@@ -13,6 +13,7 @@ import {
   MatToolbarModule,
   MatDatepickerModule,
   MatNativeDateModule,
+  MatDialogModule,
 } from '@angular/material';
 import { MatExpansionModule } from '@angular/material/expansion';
 
@@ -32,6 +33,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatExpansionModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
   ],
   exports: [
     MatToolbarModule,
@@ -48,6 +50,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatExpansionModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
   ],
 })
 export class MaterialModule {}

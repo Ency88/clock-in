@@ -10,7 +10,7 @@
     ]
   },
   "hosting": {
-    "public": "dist",
+    "public": "./dist/clock-in/",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
