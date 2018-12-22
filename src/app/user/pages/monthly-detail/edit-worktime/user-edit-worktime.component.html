@@ -13,7 +13,7 @@
               <span *ngFor="let work of userMonthlyDetailService.workTimesToUpdate; let i = index" class="worktime">
                 <span>{{work.type | titlecase}}</span>
                 <span>
-                    <input type="text" [ngModel]="userMonthlyDetailService.getDate(work.timestamp) | date: 'HH:mm'" #input (keyup)="dateNumberChange(input.value,work)"/>
+                    <input type="text" [ngModel]="userMonthlyDetailService.getDate(work.timestamp) | date: 'HH:mm'" #input (change)="dateNumberChange(input.value,work)"/>
                     <button type="button" color="primary" mat-raised-button (click)="onDeleteWorkTime(i,workTime)">
                       {{'Delete'}}
                     </button>

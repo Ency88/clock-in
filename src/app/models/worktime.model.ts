@@ -6,4 +6,5 @@ export interface WorktimeModel {
   uid: string;
   latitude: number;
   longitude: number;
+  docId: string;
 }

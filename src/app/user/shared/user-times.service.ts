@@ -80,13 +80,15 @@ export class UserTimesService {
       withLatestFrom(this.isUserWorking(userId)),
       switchMap(([{ latitude, longitude }, working]) => {
         this.updateLocation(userId, true).subscribe();
+        const ref = this.database.collection('worktimes').doc();
         return from(
-          this.database.collection('worktimes').add({
+          ref.set({
             timestamp: new Date(),
             type: working ? WorktimeTypeEnum.stop : WorktimeTypeEnum.start,
             uid: userId,
             latitude,
             longitude,
+            docId: ref.id
           })
         );
       }),
@@ -102,6 +104,7 @@ export class UserTimesService {
       uid: null,
       latitude: null,
       longitude: null,
+      docId: null,
     });
   }
 
@@ -117,13 +120,15 @@ export class UserTimesService {
         return of({ latitude: 0, longitude: 0 });
       }),
       switchMap(({ latitude, longitude }) => {
+        const ref = this.database.collection('worktimes').doc();
         return from(
-          this.database.collection('worktimes').add({
+          ref.set({
             timestamp: workTime.timestamp,
             type: workTime.type,
             uid: userId,
             latitude,
             longitude,
+            docId: ref.id
           })
         );
       }),
@@ -220,7 +225,7 @@ export class UserTimesService {
     return from(
       this.database
         .collection('worktimes')
-        .where('uid', '==', workTime.uid)
+        .where('docId', '==', workTime.docId)
         .get()
     ).pipe(
       catchError(err => throwError(err)),
@@ -231,11 +236,11 @@ export class UserTimesService {
   /**
    * Delete workTime by uid
    */
-  public deleteWorkTime(uid: string): Observable<any> {
+  public deleteWorkTime(docId: string): Observable<any> {
     return from(
       this.database
         .collection('worktimes')
-        .where('uid', '==', uid)
+        .where('docId', '==', docId)
         .get()
     ).pipe(
       catchError(err => throwError(err)),

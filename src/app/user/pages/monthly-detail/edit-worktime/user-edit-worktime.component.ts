@@ -1,28 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { WorktimeModel } from '../../../../models/worktime.model';
-import { UserTimesService } from '../../../shared/user-times.service';
-import { AuthService } from '../../../../services/auth.service';
-import { UserMonthlyDetailService } from '../user-monthly-detail.service';
-import { WorktimeTypeEnum } from '../../../../models/worktime-type.enum';
-import { switchMap } from 'rxjs/operators';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {WorktimeModel} from '../../../../models/worktime.model';
+import {UserTimesService} from '../../../shared/user-times.service';
+import {AuthService} from '../../../../services/auth.service';
+import {UserMonthlyDetailService} from '../user-monthly-detail.service';
+import {WorktimeTypeEnum} from '../../../../models/worktime-type.enum';
+import {switchMap} from 'rxjs/operators';
 
 @Component({
-  selector: 'ci-edit-worktime',
+  selector: 'ci-user-edit-worktime',
   templateUrl: './user-edit-worktime.component.html',
   styleUrls: ['./user-edit-worktime.component.scss'],
 })
 export class UserEditWorktimeComponent implements OnInit {
   public date: Date;
   public workTime: WorktimeModel;
-
+  public workTimeToDelete: WorktimeModel[] = [];
   constructor(
     private userTimeService: UserTimesService,
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
     public userMonthlyDetailService: UserMonthlyDetailService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
@@ -43,12 +44,10 @@ export class UserEditWorktimeComponent implements OnInit {
   }
 
   onDeleteWorkTime(index: number, workTime: WorktimeModel) {
-    //TODO fix deleting wrong records at firestore
     console.log(index);
-    if (workTime.uid != null) {
-      this.userTimeService.deleteWorkTime(workTime.uid).subscribe(() => {
-        this.userMonthlyDetailService.workTimesToUpdate.splice(index, 1);
-      });
+    if (workTime.docId != null) {
+      this.userMonthlyDetailService.workTimesToUpdate.splice(index, 1);
+      this.workTimeToDelete.push(workTime);
     } else {
       this.userMonthlyDetailService.workTimesToUpdate.splice(index, 1);
     }
@@ -67,14 +66,17 @@ export class UserEditWorktimeComponent implements OnInit {
 
   onDataSave() {
     this.userMonthlyDetailService.workTimesToUpdate.forEach(workTime => {
-      if (workTime.uid != null) {
+      if (workTime.docId != null) {
         this.userTimeService.updateWorkTime(workTime).subscribe();
       } else {
         this.authService.user
-          .pipe(switchMap(({ uid }) => this.userTimeService.addWorkTime(uid, workTime)))
+          .pipe(switchMap(({uid}) => this.userTimeService.addWorkTime(uid, workTime)))
           .subscribe();
       }
     });
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.workTimeToDelete.forEach(workTimeRow => {
+      this.userTimeService.deleteWorkTime(workTimeRow.docId).subscribe();
+    });
+      this.router.navigate(['../'], {relativeTo: this.route});
   }
 }
