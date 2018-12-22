@@ -38,14 +38,16 @@ export default class Seeder {
     }
     // create worktimes
     for (const worktime of worktimes) {
-      const { id } = await db.collection('worktimes').add({
+      const ref = db.collection('worktimes').doc();
+      ref.set({
         timestamp: worktime.timestamp,
         type: worktime.type,
         uid,
         latitude: worktime.latitude,
         longitude: worktime.longitude,
+        docId: ref.id
       });
-      console.log(`Created worktime: ${id}`);
+      console.log(`Created worktime: ${ref.id}`);
     }
 
     return promise.Promise.resolve(uid);
