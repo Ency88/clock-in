@@ -1,31 +1,27 @@
 <div class="grid-container">
-  <mat-grid-list cols="1" rowHeight="fit" style="height: 700px;">
+  <mat-grid-list cols="1" rowHeight="fit">
     <mat-grid-tile>
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
-            <h1 class="mat-h1">Edit Date</h1>
+            <h1 class="mat-h1">{{date}}</h1>
           </mat-card-title>
         </mat-card-header>
         <div>
           <mat-card-content class="dashboard-card-content">
-            <div>Date: {{date}}</div>
-            <div *ngIf="workTime;  else noWorkTime">
-              <div *ngFor="let work of userMonthlyDetailService.workTimesToUpdate; let i = index" style="margin-bottom: 15px;">
-                <div>{{work.type | uppercase}}</div>
-                <div class="row" style="width: 100%; justify-content: center;">
-                  <div class="col-6">
-                    <input type="text" style="margin-right: 20px; margin-top: 8px;" [ngModel]="userMonthlyDetailService.getDate(work.timestamp) | date: 'HH:mm'" #input (keyup)="dateNumberChange(input.value,work)"/>
-                  </div>
-                  <div class="col-6">
-                    <button type="button" color="primary" mat-raised-button style="margin-right: 20px;" (click)="onDeleteWorkTime(i,workTime)">
+            <div *ngIf="workTime;  else noWorkTime" class="worktimes">
+              <span *ngFor="let work of userMonthlyDetailService.workTimesToUpdate; let i = index" class="worktime">
+                <span>{{work.type | titlecase}}</span>
+                <span>
+                    <input type="text" [ngModel]="userMonthlyDetailService.getDate(work.timestamp) | date: 'HH:mm'" #input (keyup)="dateNumberChange(input.value,work)"/>
+                    <button type="button" color="primary" mat-raised-button (click)="onDeleteWorkTime(i,workTime)">
                       {{'Delete'}}
                     </button>
-                  </div>
-                </div>
-              </div>
+                </span>
+                <br>
+              </span>
             </div>
-            <button type="button" color="primary" mat-raised-button style="margin-top: 20px;" (click)="onAddWorkTime()">
+            <button type="button" color="primary" mat-raised-button (click)="onAddWorkTime()">
               {{'Add'}}
             </button>
             <ng-template #noWorkTime>
@@ -33,7 +29,7 @@
             </ng-template>
             <div>
               <br>
-              <button type="button" color="primary" mat-raised-button style="margin-right: 20px;" (click)="onDataSave()">
+              <button type="button" color="primary" mat-raised-button (click)="onDataSave()">
                 {{'Save'}}
               </button>
               <button type="button" color="accent" mat-raised-button>
