@@ -1,12 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {WorktimeModel} from '../../../../models/worktime.model';
-import {UserTimesService} from '../../../shared/user-times.service';
-import {AuthService} from '../../../../services/auth.service';
-import {UserMonthlyDetailService} from '../user-monthly-detail.service';
-import {WorktimeTypeEnum} from '../../../../models/worktime-type.enum';
-import {switchMap} from 'rxjs/operators';
-
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { WorktimeModel } from '../../../../models/worktime.model';
+import { UserTimesService } from '../../../shared/user-times.service';
+import { AuthService } from '../../../../services/auth.service';
+import { UserMonthlyDetailService } from '../user-monthly-detail.service';
+import { WorktimeTypeEnum } from '../../../../models/worktime-type.enum';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'ci-edit-worktime',
@@ -14,7 +13,6 @@ import {switchMap} from 'rxjs/operators';
   styleUrls: ['./user-edit-worktime.component.scss'],
 })
 export class UserEditWorktimeComponent implements OnInit {
-
   public date: Date;
   public workTime: WorktimeModel;
 
@@ -27,12 +25,9 @@ export class UserEditWorktimeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.params
-      .subscribe(
-        (params: Params) => {
-          this.date = params['date'];
-        }
-      );
+    this.route.params.subscribe((params: Params) => {
+      this.date = params['date'];
+    });
     this.workTime = this.userMonthlyDetailService.getWorkTime();
   }
 
@@ -60,8 +55,14 @@ export class UserEditWorktimeComponent implements OnInit {
   }
 
   onAddWorkTime() {
-    this.userTimeService.addEmptyWorkTimeToArray(WorktimeTypeEnum.start, this.userMonthlyDetailService.workTimesToUpdate);
-    this.userTimeService.addEmptyWorkTimeToArray(WorktimeTypeEnum.stop, this.userMonthlyDetailService.workTimesToUpdate);
+    this.userTimeService.addEmptyWorkTimeToArray(
+      WorktimeTypeEnum.start,
+      this.userMonthlyDetailService.workTimesToUpdate
+    );
+    this.userTimeService.addEmptyWorkTimeToArray(
+      WorktimeTypeEnum.stop,
+      this.userMonthlyDetailService.workTimesToUpdate
+    );
   }
 
   onDataSave() {
@@ -69,10 +70,11 @@ export class UserEditWorktimeComponent implements OnInit {
       if (workTime.uid != null) {
         this.userTimeService.updateWorkTime(workTime).subscribe();
       } else {
-        this.authService.user.pipe(
-          switchMap(({ uid }) => this.userTimeService.addWorkTime(uid, workTime))).subscribe();
+        this.authService.user
+          .pipe(switchMap(({ uid }) => this.userTimeService.addWorkTime(uid, workTime)))
+          .subscribe();
       }
     });
-    this.router.navigate(['../'], {relativeTo: this.route});
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 }

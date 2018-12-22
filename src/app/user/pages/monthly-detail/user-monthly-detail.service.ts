@@ -1,10 +1,8 @@
-import {Injectable} from '@angular/core';
-import {WorktimeModel} from '../../../models/worktime.model';
-
+import { Injectable } from '@angular/core';
+import { WorktimeModel } from '../../../models/worktime.model';
 
 @Injectable()
 export class UserMonthlyDetailService {
-
   private workTime: WorktimeModel;
   public worktimes: WorktimeModel[] = [];
   public workTimesToUpdate: WorktimeModel[] = [];
@@ -21,7 +19,9 @@ export class UserMonthlyDetailService {
 
   formatWorkTime(worktime) {
     const headerDate = new Date(worktime.timestamp.seconds * 1000);
-    return headerDate.getDate() + '-' + (headerDate.getMonth() + 1) + '-' + headerDate.getFullYear();
+    return (
+      headerDate.getDate() + '-' + (headerDate.getMonth() + 1) + '-' + headerDate.getFullYear()
+    );
   }
 
   getKeyValuePairs(workTime: String) {
@@ -34,7 +34,7 @@ export class UserMonthlyDetailService {
     return result.reverse();
   }
 
-  setWorkTimesToUpdate(workTimes: WorktimeModel[]){
+  setWorkTimesToUpdate(workTimes: WorktimeModel[]) {
     this.workTimesToUpdate = workTimes;
   }
 
@@ -48,7 +48,7 @@ export class UserMonthlyDetailService {
   }
 
   getDate(timestamp) {
-    if (timestamp instanceof Date){
+    if (timestamp instanceof Date) {
       return timestamp;
     }
     return new Date(timestamp.seconds * 1000);

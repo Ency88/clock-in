@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { UserTimesService } from '../../shared/user-times.service';
 import { AuthService } from '../../../services/auth.service';
@@ -11,8 +11,8 @@ import * as _moment from 'moment';
 import { Moment } from 'moment';
 import { SignTheMonthDialogComponent } from '../../components/sign-the-month-dialog/sign-the-month-dialog.component';
 import { WorktimeTypeEnum } from '../../../models/worktime-type.enum';
-import {ActivatedRoute, Router} from '@angular/router';
-import {UserMonthlyDetailService} from './user-monthly-detail.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserMonthlyDetailService } from './user-monthly-detail.service';
 const moment = _moment;
 
 export const MY_FORMATS = {
@@ -57,7 +57,6 @@ export class UserMonthlyDetailComponent implements OnInit {
     public userMonthlyDetailService: UserMonthlyDetailService
   ) {}
 
-
   ngOnInit(): void {
     this.userMonthlyDetailService.worktimes = [];
     this.authService.user
@@ -68,7 +67,10 @@ export class UserMonthlyDetailComponent implements OnInit {
       )
       .subscribe(r => {
         r.forEach(e => {
-          this.userMonthlyDetailService.worktimes = [e.data(), ...this.userMonthlyDetailService.worktimes];
+          this.userMonthlyDetailService.worktimes = [
+            e.data(),
+            ...this.userMonthlyDetailService.worktimes,
+          ];
         });
         this.showSpinner = false;
       });
@@ -89,7 +91,9 @@ export class UserMonthlyDetailComponent implements OnInit {
 
   headerText(worktime) {
     const headerDate = new Date(worktime.timestamp.seconds * 1000);
-    return headerDate.getDate() + '-' + (headerDate.getMonth() + 1) + '-' + headerDate.getFullYear();
+    return (
+      headerDate.getDate() + '-' + (headerDate.getMonth() + 1) + '-' + headerDate.getFullYear()
+    );
   }
 
   chosenYearHandler(normalizedYear: Moment) {
@@ -118,7 +122,10 @@ export class UserMonthlyDetailComponent implements OnInit {
       )
       .subscribe(r => {
         r.forEach(e => {
-          this.userMonthlyDetailService.worktimes = [e.data(), ...this.userMonthlyDetailService.worktimes];
+          this.userMonthlyDetailService.worktimes = [
+            e.data(),
+            ...this.userMonthlyDetailService.worktimes,
+          ];
           if (tempWorkTime == null) {
             tempWorkTime = e.data();
             this.groupedWorkTimes.set(this.headerText(e.data()), e.data());
@@ -208,7 +215,9 @@ export class UserMonthlyDetailComponent implements OnInit {
 
   onEditTheRecord(workTime: WorktimeModel) {
     this.userMonthlyDetailService.setWorkTime(workTime);
-    this.userMonthlyDetailService.setWorkTimesToUpdate(this.userMonthlyDetailService.getKeyValuePairs(this.headerText(workTime)));
-    this.router.navigate(['edit', this.headerText(workTime)], {relativeTo: this.route});
+    this.userMonthlyDetailService.setWorkTimesToUpdate(
+      this.userMonthlyDetailService.getKeyValuePairs(this.headerText(workTime))
+    );
+    this.router.navigate(['edit', this.headerText(workTime)], { relativeTo: this.route });
   }
 }

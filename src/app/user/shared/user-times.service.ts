@@ -4,7 +4,7 @@ import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import { WorktimeTypeEnum } from '../../models/worktime-type.enum';
 import { LocationService } from '../../services/location.service';
-import {WorktimeModel} from '../../models/worktime.model';
+import { WorktimeModel } from '../../models/worktime.model';
 
 @Injectable({
   providedIn: 'root',
@@ -224,7 +224,7 @@ export class UserTimesService {
         .get()
     ).pipe(
       catchError(err => throwError(err)),
-      map(({ size, docs }) => size && docs[0].ref.update( workTime ))
+      map(({ size, docs }) => size && docs[0].ref.update(workTime))
     );
   }
 
