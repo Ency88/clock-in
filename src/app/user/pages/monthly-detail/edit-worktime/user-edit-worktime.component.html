@@ -1,0 +1,48 @@
+<div class="grid-container">
+  <mat-grid-list cols="1" rowHeight="fit" style="height: 700px;">
+    <mat-grid-tile>
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            <h1 class="mat-h1">Edit Date</h1>
+          </mat-card-title>
+        </mat-card-header>
+        <div>
+          <mat-card-content class="dashboard-card-content">
+            <div>Date: {{date}}</div>
+            <div *ngIf="workTime;  else noWorkTime">
+              <div *ngFor="let work of userMonthlyDetailService.workTimesToUpdate; let i = index" style="margin-bottom: 15px;">
+                <div>{{work.type | uppercase}}</div>
+                <div class="row" style="width: 100%; justify-content: center;">
+                  <div class="col-6">
+                    <input type="text" style="margin-right: 20px; margin-top: 8px;" [ngModel]="userMonthlyDetailService.getDate(work.timestamp) | date: 'HH:mm'" #input (keyup)="dateNumberChange(input.value,work)"/>
+                  </div>
+                  <div class="col-6">
+                    <button type="button" color="primary" mat-raised-button style="margin-right: 20px;" (click)="onDeleteWorkTime(i,workTime)">
+                      {{'Delete'}}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="button" color="primary" mat-raised-button style="margin-top: 20px;" (click)="onAddWorkTime()">
+              {{'Add'}}
+            </button>
+            <ng-template #noWorkTime>
+              <div>No work times found.</div>
+            </ng-template>
+            <div>
+              <br>
+              <button type="button" color="primary" mat-raised-button style="margin-right: 20px;" (click)="onDataSave()">
+                {{'Save'}}
+              </button>
+              <button type="button" color="accent" mat-raised-button>
+                {{'Cancel'}}
+              </button>
+            </div>
+          </mat-card-content>
+        </div>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
