@@ -11,30 +11,42 @@
           <mat-card-content class="dashboard-card-content">
             <div *ngIf="workTime;  else noWorkTime" class="worktimes">
               <span *ngFor="let work of userMonthlyDetailService.workTimesToUpdate; let i = index" class="worktime">
-                <span>{{work.type | titlecase}}</span>
-                <span>
-                    <input type="text" [ngModel]="userMonthlyDetailService.getDate(work.timestamp) | date: 'HH:mm'" #input (change)="dateNumberChange(input.value,work)"/>
-                    <button type="button" color="primary" mat-raised-button (click)="onDeleteWorkTime(i,workTime)">
+                <div class="row" style="justify-content: center;">
+                  <span class="col-md-12 centerCol">
+                    <span style="font-size: 20px; margin: 25px;">{{work.type | titlecase}}</span>
+                    <input type="text" matInput [ngModel]="userMonthlyDetailService.getDate(work.timestamp) | date: 'HH:mm'"
+                           #input (change)="dateNumberChange(input.value,work)" style="width: 100px; margin: 20px; font-size: 20px; border: 0; text-decoration: underline"/>
+                    <button type="button" class="dltButton" color="primary" mat-raised-button (click)="onDeleteWorkTime(i,workTime)">
                       {{'Delete'}}
                     </button>
-                </span>
+                  </span>
+                </div>
                 <br>
               </span>
+              <span class="centerCol" style="border-bottom: 2px solid #01a688; margin-bottom: 20px;"></span>
             </div>
-            <button type="button" color="primary" mat-raised-button (click)="onAddWorkTime()">
-              {{'Add'}}
-            </button>
+            <div class="row">
+              <div class="col-md-12 centerCol">
+                <button type="button" color="primary" mat-raised-button (click)="onAddWorkTime()">
+                  {{'Add'}}
+                </button>
+              </div>
+            </div>
             <ng-template #noWorkTime>
-              <div>No work times found.</div>
+              <div class="centerCol">No work times found.</div>
             </ng-template>
             <div>
               <br>
-              <button type="button" color="primary" mat-raised-button (click)="onDataSave()">
-                {{'Save'}}
-              </button>
-              <button type="button" color="accent" mat-raised-button>
-                {{'Cancel'}}
-              </button>
+              <div class="row">
+                <div class="col-md-12 centerCol">
+                  <button type="button" color="primary" mat-raised-button (click)="onDataSave()" style="margin-right: 20px;">
+                    {{'Save'}}
+                  </button>
+                  <button type="button" color="accent" mat-raised-button (click)="onCancelButton()">
+                    {{'Cancel'}}
+                  </button>
+                </div>
+              </div>
             </div>
           </mat-card-content>
         </div>

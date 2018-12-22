@@ -79,4 +79,8 @@ export class UserEditWorktimeComponent implements OnInit {
     });
       this.router.navigate(['../'], {relativeTo: this.route});
   }
+
+  onCancelButton() {
+    this.router.navigate(['../'], {relativeTo: this.route});
+  }
 }

@@ -8,6 +8,18 @@
     justify-content: center;
   }
 
+  .centerCol {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .dltButton {
+    width: 100px;
+    height: 35px;
+    margin: 20px;
+  }
+
   mat-card-header {
     display: flex;
     justify-content: center;
