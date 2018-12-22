@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {WorktimeModel} from '../../../../models/worktime.model';
-import {UserTimesService} from '../../../shared/user-times.service';
-import {AuthService} from '../../../../services/auth.service';
-import {UserMonthlyDetailService} from '../user-monthly-detail.service';
-import {WorktimeTypeEnum} from '../../../../models/worktime-type.enum';
-import {switchMap} from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { WorktimeModel } from '../../../../models/worktime.model';
+import { UserTimesService } from '../../../shared/user-times.service';
+import { AuthService } from '../../../../services/auth.service';
+import { UserMonthlyDetailService } from '../user-monthly-detail.service';
+import { WorktimeTypeEnum } from '../../../../models/worktime-type.enum';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'ci-user-edit-worktime',
@@ -22,8 +22,7 @@ export class UserEditWorktimeComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public userMonthlyDetailService: UserMonthlyDetailService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
@@ -70,17 +69,17 @@ export class UserEditWorktimeComponent implements OnInit {
         this.userTimeService.updateWorkTime(workTime).subscribe();
       } else {
         this.authService.user
-          .pipe(switchMap(({uid}) => this.userTimeService.addWorkTime(uid, workTime)))
+          .pipe(switchMap(({ uid }) => this.userTimeService.addWorkTime(uid, workTime)))
           .subscribe();
       }
     });
     this.workTimeToDelete.forEach(workTimeRow => {
       this.userTimeService.deleteWorkTime(workTimeRow.docId).subscribe();
     });
-      this.router.navigate(['../'], {relativeTo: this.route});
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   onCancelButton() {
-    this.router.navigate(['../'], {relativeTo: this.route});
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 }

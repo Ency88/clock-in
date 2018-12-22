@@ -45,7 +45,7 @@ export default class Seeder {
         uid,
         latitude: worktime.latitude,
         longitude: worktime.longitude,
-        docId: ref.id
+        docId: ref.id,
       });
       console.log(`Created worktime: ${ref.id}`);
     }

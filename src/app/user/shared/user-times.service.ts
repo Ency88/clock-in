@@ -88,7 +88,7 @@ export class UserTimesService {
             uid: userId,
             latitude,
             longitude,
-            docId: ref.id
+            docId: ref.id,
           })
         );
       }),
@@ -128,7 +128,7 @@ export class UserTimesService {
             uid: userId,
             latitude,
             longitude,
-            docId: ref.id
+            docId: ref.id,
           })
         );
       }),
