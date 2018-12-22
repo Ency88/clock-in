@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { UserTimesService } from '../../shared/user-times.service';
 import { AuthService } from '../../../services/auth.service';
@@ -11,7 +11,8 @@ import * as _moment from 'moment';
 import { Moment } from 'moment';
 import { SignTheMonthDialogComponent } from '../../components/sign-the-month-dialog/sign-the-month-dialog.component';
 import { WorktimeTypeEnum } from '../../../models/worktime-type.enum';
-import { calcBindingFlags } from '@angular/core/src/view/util';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserMonthlyDetailService} from './user-monthly-detail.service';
 const moment = _moment;
 
 export const MY_FORMATS = {
@@ -37,7 +38,6 @@ export const MY_FORMATS = {
 })
 export class UserMonthlyDetailComponent implements OnInit {
   public panelOpenState: boolean;
-  public worktimes: WorktimeModel[] = [];
   public groupedWorkTimes = new Map<String, WorktimeModel>();
   public date = new FormControl(moment());
   public myDate = new Date();
@@ -51,10 +51,15 @@ export class UserMonthlyDetailComponent implements OnInit {
   constructor(
     private userTimeService: UserTimesService,
     private authService: AuthService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router,
+    public userMonthlyDetailService: UserMonthlyDetailService
   ) {}
 
+
   ngOnInit(): void {
+    this.userMonthlyDetailService.worktimes = [];
     this.authService.user
       .pipe(
         switchMap(user =>
@@ -63,7 +68,7 @@ export class UserMonthlyDetailComponent implements OnInit {
       )
       .subscribe(r => {
         r.forEach(e => {
-          this.worktimes = [e.data(), ...this.worktimes];
+          this.userMonthlyDetailService.worktimes = [e.data(), ...this.userMonthlyDetailService.worktimes];
         });
         this.showSpinner = false;
       });
@@ -84,7 +89,7 @@ export class UserMonthlyDetailComponent implements OnInit {
 
   headerText(worktime) {
     const headerDate = new Date(worktime.timestamp.seconds * 1000);
-    return headerDate.getDate() + '.' + headerDate.getMonth() + '.' + headerDate.getFullYear();
+    return headerDate.getDate() + '-' + (headerDate.getMonth() + 1) + '-' + headerDate.getFullYear();
   }
 
   chosenYearHandler(normalizedYear: Moment) {
@@ -113,7 +118,7 @@ export class UserMonthlyDetailComponent implements OnInit {
       )
       .subscribe(r => {
         r.forEach(e => {
-          this.worktimes = [e.data(), ...this.worktimes];
+          this.userMonthlyDetailService.worktimes = [e.data(), ...this.userMonthlyDetailService.worktimes];
           if (tempWorkTime == null) {
             tempWorkTime = e.data();
             this.groupedWorkTimes.set(this.headerText(e.data()), e.data());
@@ -130,35 +135,12 @@ export class UserMonthlyDetailComponent implements OnInit {
       });
   }
 
-  getKeyValuePairs(workTime: String) {
-    const result: WorktimeModel[] = [];
-    this.worktimes.forEach(e => {
-      if (this.headerText(e) === workTime) {
-        result.push(e);
-      }
-    });
-    return result.reverse();
-  }
-
-  getDateFromNumberTimestamp(timestamp) {
-    const timestampDate = new Date(timestamp.seconds * 1000);
-    let zero = '';
-    if (timestampDate.getMinutes().toString().length === 1) {
-      zero = '0';
-    }
-    return timestampDate.getHours() + ':' + zero + timestampDate.getMinutes();
-  }
-
-  getDate(timestamp) {
-    return new Date(timestamp.seconds * 1000);
-  }
-
   calculateTotalTimeDone() {
     this.alreadyDoneTarget = 0;
     let startDate;
     let stopDate;
-    this.worktimes.forEach(work => {
-      const tmDate = this.getDate(work.timestamp);
+    this.userMonthlyDetailService.worktimes.forEach(work => {
+      const tmDate = this.userMonthlyDetailService.getDate(work.timestamp);
       if (startDate == null && work.type === WorktimeTypeEnum.start) {
         startDate = tmDate;
       } else if (stopDate == null && work.type === WorktimeTypeEnum.stop) {
@@ -212,15 +194,21 @@ export class UserMonthlyDetailComponent implements OnInit {
 
   myFilter = (d: Date) => {
     d = new Date(d.toISOString());
-    const day = d.getDate(),
+    const day = 1,
       month = d.getMonth(),
       year = d.getFullYear();
     return this.allWorktimes.find(element => {
       element = new Date(element);
       const year_element = element.getFullYear();
-      const day_element = element.getDate();
+      const day_element = 1;
       const month_element = element.getMonth();
       return year_element === year && day_element === day && month_element === month;
     });
+  };
+
+  onEditTheRecord(workTime: WorktimeModel) {
+    this.userMonthlyDetailService.setWorkTime(workTime);
+    this.userMonthlyDetailService.setWorkTimesToUpdate(this.userMonthlyDetailService.getKeyValuePairs(this.headerText(workTime)));
+    this.router.navigate(['edit', this.headerText(workTime)], {relativeTo: this.route});
   }
 }
