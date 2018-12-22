@@ -62,11 +62,17 @@ export class TimeLoggerComponent {
    */
   get done() {
     // if overtime, display it
-    const seconds =
-      this.alreadyDone > this.dayTarget ? this.alreadyDone - this.dayTarget : this.alreadyDone;
+    let seconds = 0;
+    let text = '';
+    if (this.alreadyDone > this.dayTarget) {
+      seconds = this.alreadyDone - this.dayTarget;
+      text += 'overtime ';
+    } else {
+      seconds = this.alreadyDone;
+    }
     const time = new Date(0, 0, 0, 0, 0, 0, 0);
     time.setSeconds(seconds);
-    let text = time.getHours() ? `${time.getHours()}h ` : '';
+    text += time.getHours() ? `${time.getHours()}h ` : '';
     text += time.getMinutes() ? `${time.getMinutes()}min` : '';
     return text;
   }
