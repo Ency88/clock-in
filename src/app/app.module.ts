@@ -14,7 +14,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AuthService } from './services/auth.service';
 import { LoginComponent } from './ui/login/login.component';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MaterialModule } from './material.module';
 
 @NgModule({
@@ -30,6 +30,7 @@ import { MaterialModule } from './material.module';
     MaterialModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [AuthGuard, AuthService],
   bootstrap: [AppComponent],
