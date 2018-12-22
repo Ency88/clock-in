@@ -4,6 +4,7 @@ import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import { WorktimeTypeEnum } from '../../models/worktime-type.enum';
 import { LocationService } from '../../services/location.service';
+import {WorktimeModel} from '../../models/worktime.model';
 
 @Injectable({
   providedIn: 'root',
@@ -94,6 +95,43 @@ export class UserTimesService {
     );
   }
 
+  public addEmptyWorkTimeToArray(working: WorktimeTypeEnum, array: WorktimeModel[]) {
+    array.push({
+      timestamp: new Date(),
+      type: working,
+      uid: null,
+      latitude: null,
+      longitude: null,
+    });
+  }
+
+  /**
+   * Add work time object
+   */
+  public addWorkTime(userId: string, workTime: WorktimeModel): Observable<number> {
+    return this.locationService.getCurrentPosition().pipe(
+      map(({ coords: { latitude, longitude } }) => ({ latitude, longitude })),
+      // if error getting position or user has disabled location use zeros
+      catchError(() => {
+        this.updateLocation(userId, false).subscribe();
+        return of({ latitude: 0, longitude: 0 });
+      }),
+      switchMap(({ latitude, longitude }) => {
+        return from(
+          this.database.collection('worktimes').add({
+            timestamp: workTime.timestamp,
+            type: workTime.type,
+            uid: userId,
+            latitude,
+            longitude,
+          })
+        );
+      }),
+      catchError(err => throwError(err)),
+      switchMap(() => this.getAlreadyDone(userId))
+    );
+  }
+
   /**
    * Get user's day time target in seconds
    */
@@ -172,6 +210,36 @@ export class UserTimesService {
       catchError(err => throwError(err)),
       map(({ size, docs }) => size && docs[0].ref.update({ isLocation: enabled })),
       map(() => enabled)
+    );
+  }
+
+  /**
+   * Update workTime
+   */
+  public updateWorkTime(workTime: WorktimeModel): Observable<Date> {
+    return from(
+      this.database
+        .collection('worktimes')
+        .where('uid', '==', workTime.uid)
+        .get()
+    ).pipe(
+      catchError(err => throwError(err)),
+      map(({ size, docs }) => size && docs[0].ref.update( workTime ))
+    );
+  }
+
+  /**
+   * Delete workTime by uid
+   */
+  public deleteWorkTime(uid: string): Observable<any> {
+    return from(
+      this.database
+        .collection('worktimes')
+        .where('uid', '==', uid)
+        .get()
+    ).pipe(
+      catchError(err => throwError(err)),
+      map(({ size, docs }) => size && docs[0].ref.delete())
     );
   }
 
