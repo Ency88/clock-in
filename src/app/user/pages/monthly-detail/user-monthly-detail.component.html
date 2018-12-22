@@ -1,5 +1,5 @@
 <div class="grid-container">
-  <mat-grid-list cols="1" rowHeight="fit" style="height: 700px;">
+  <mat-grid-list cols="1" rowHeight="fit">
     <mat-grid-tile>
       <mat-card class="dashboard-card">
         <mat-card-header>
@@ -31,14 +31,16 @@
                       {{headerText(worktime.value)}}
                     </mat-panel-description>
                   </mat-expansion-panel-header>
-                  <div style="display: flex; justify-content: flex-end;">
-                    <button type="button" color="primary" mat-raised-button (click)="onEditTheRecord(worktime.value)">
-                      {{'Edit' }}
-                    </button>
+                  <div class="worktime-list">
+                    <span *ngFor="let work of userMonthlyDetailService.getKeyValuePairs(headerText(worktime.value)); let i = index">
+                      {{userMonthlyDetailService.getDateFromNumberTimestamp(work.timestamp)}}
+                      {{!(i % 2)? ' - ' : ''}}
+                      <br *ngIf="i % 2">
+                    </span>
                   </div>
-                  <div *ngFor="let work of userMonthlyDetailService.getKeyValuePairs(headerText(worktime.value))">
-                    {{work.type | uppercase}} - {{userMonthlyDetailService.getDateFromNumberTimestamp(work.timestamp)}}
-                  </div>
+                  <button type="button" color="primary" mat-raised-button (click)="onEditTheRecord(worktime.value)">
+                    {{'Edit' }}
+                  </button>
                 </mat-expansion-panel>
                 <mat-expansion-panel (opened)="panelOpenState = true"
                                      (closed)="panelOpenState = false">
