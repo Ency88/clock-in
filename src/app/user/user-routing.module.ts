@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { UserDashboardComponent } from './pages/user-dashboard/user-dashboard.component';
 import { UserMonthlyDetailComponent } from './pages/monthly-detail/user-monthly-detail.component';
+import {UserEditWorktimeComponent} from './pages/monthly-detail/edit-worktime/user-edit-worktime.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,16 @@ const routes: Routes = [
   },
   {
     path: 'monthly-detail',
-    component: UserMonthlyDetailComponent,
+    children: [
+      {
+        path: '',
+        component: UserMonthlyDetailComponent,
+      },
+      {
+        path: 'edit/:date',
+        component: UserEditWorktimeComponent,
+      }
+    ]
   },
 ];
 
