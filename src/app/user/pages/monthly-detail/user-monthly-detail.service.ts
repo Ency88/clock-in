@@ -9,6 +9,12 @@ export class UserMonthlyDetailService {
 
   constructor() {}
 
+  reset(): void {
+    this.workTime = null;
+    this.worktimes = [];
+    this.workTimesToUpdate = [];
+  }
+
   setWorkTime(workTime: WorktimeModel) {
     this.workTime = workTime;
   }

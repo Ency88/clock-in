@@ -78,15 +78,10 @@ export class UserMonthlyDetailComponent implements OnInit {
     this.authService.user
       .pipe(
         switchMap(user =>
-          this.userTimeService.getAttendanceForUser(user.uid, new Date(2018, 1, 1), new Date())
+          this.userTimeService.getAttendanceForUser(user.uid, new Date(2018, 0, 0), new Date())
         )
       )
-      .subscribe(r => {
-        r.forEach(e => {
-          const date = new Date(e.data().timestamp.seconds * 1000);
-          this.allWorktimes = [date.toISOString(), ...this.allWorktimes];
-        });
-      });
+      .subscribe(r => r.forEach(e => this.allWorktimes.push(e.data().timestamp.toDate())));
   }
 
   headerText(worktime) {
@@ -107,7 +102,7 @@ export class UserMonthlyDetailComponent implements OnInit {
     ctrlValue.month(normlizedMonth.month());
     this.date.setValue(ctrlValue);
     datepicker.close();
-    this.myDate = ctrlValue.toDate();
+    this.myDate = normlizedMonth.toDate();
     this.onDateChange();
   }
 
@@ -117,10 +112,16 @@ export class UserMonthlyDetailComponent implements OnInit {
     this.authService.user
       .pipe(
         switchMap(user =>
-          this.userTimeService.getAttendanceForUser(user.uid, this.myDate, new Date())
+          this.userTimeService.getAttendanceForUser(
+            user.uid,
+            this.myDate,
+            new Date(this.myDate.getFullYear(), this.myDate.getMonth() + 1, 0, 24)
+          )
         )
       )
       .subscribe(r => {
+        this.groupedWorkTimes = new Map<String, WorktimeModel>();
+        this.userMonthlyDetailService.reset();
         r.forEach(e => {
           this.userMonthlyDetailService.worktimes = [
             e.data(),
