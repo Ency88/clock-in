@@ -13,7 +13,8 @@
     "prettier-fix": "npm run prettier -- --write",
     "pullrequest-check": "npm run lint && npm run test && ng build --prod",
     "seed": "ts-node --project tools/seeder/tsconfig.json tools/seeder/main.ts",
-    "generate-pdf:local": "ts-node --project tools/pdf-generator/tsconfig.json tools/pdf-generator/main.ts"
+    "generate-pdf:local": "ts-node --project tools/pdf-generator/tsconfig.json tools/pdf-generator/main.ts",
+    "pwa-favicon": "real-favicon generate src/faviconDescription.json faviconData.json dist/clock-in && real-favicon inject faviconData.json dist/clock-in dist/clock-in/index.html"
   },
   "private": true,
   "dependencies": {
@@ -34,6 +35,7 @@
     "@angular/service-worker": "^6.1.0",
     "@capacitor/cli": "^1.0.0-beta.11",
     "@capacitor/core": "^1.0.0-beta.11",
+    "cli-real-favicon": "0.0.7",
     "core-js": "^2.5.4",
     "firebase": "^5.5.7",
     "flexboxgrid": "^6.3.1",
