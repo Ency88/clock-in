@@ -4,7 +4,7 @@ service cloud.firestore {
     //Rules
 
     match /worktimes/{document=**} {
-      allow read, delete: if isOwner(currentData().uid);
+      allow read, update, delete: if isOwner(currentData().uid);
       allow create: if isSignedIn();
     }
 
