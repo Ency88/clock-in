@@ -16,7 +16,7 @@
                     <span style="font-size: 20px; margin: 25px;">{{work.type | titlecase}}</span>
                     <input type="text" matInput [ngModel]="userMonthlyDetailService.getDate(work.timestamp) | date: 'HH:mm'"
                            #input (change)="dateNumberChange(input.value,work)" style="width: 100px; margin: 20px; font-size: 20px; border: 0; text-decoration: underline"/>
-                    <button type="button" class="dltButton" color="primary" mat-raised-button (click)="onDeleteWorkTime(i,workTime)">
+                    <button type="button" class="dltButton" color="primary" mat-raised-button (click)="onDeleteWorkTime(i,work)">
                       {{'Delete'}}
                     </button>
                   </span>

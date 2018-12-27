@@ -97,17 +97,6 @@ export class UserTimesService {
     );
   }
 
-  public addEmptyWorkTimeToArray(working: WorktimeTypeEnum, array: WorktimeModel[]) {
-    array.push({
-      timestamp: new Date(),
-      type: working,
-      uid: null,
-      latitude: null,
-      longitude: null,
-      docId: null,
-    });
-  }
-
   /**
    * Add work time object
    */
@@ -219,32 +208,26 @@ export class UserTimesService {
   }
 
   /**
-   * Update workTime
+   * Update worktime by id
    */
-  public updateWorkTime(workTime: WorktimeModel): Observable<Date> {
-    return from(
+  public updateWorkTime(workTime: WorktimeModel): Observable<void> {
+      return from(
       this.database
         .collection('worktimes')
-        .where('docId', '==', workTime.docId)
-        .get()
-    ).pipe(
-      catchError(err => throwError(err)),
-      map(({ size, docs }) => size && docs[0].ref.update(workTime))
+        .doc(workTime.docId)
+        .update(workTime)
     );
   }
 
   /**
-   * Delete workTime by uid
+   * Delete worktime by id
    */
-  public deleteWorkTime(docId: string): Observable<any> {
+  public deleteWorkTime(docId: string): Observable<void> {
     return from(
       this.database
         .collection('worktimes')
-        .where('docId', '==', docId)
-        .get()
-    ).pipe(
-      catchError(err => throwError(err)),
-      map(({ size, docs }) => size && docs[0].ref.delete())
+        .doc(docId)
+        .delete()
     );
   }
 

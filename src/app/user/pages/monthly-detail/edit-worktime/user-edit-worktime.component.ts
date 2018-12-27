@@ -5,7 +5,6 @@ import { UserTimesService } from '../../../shared/user-times.service';
 import { AuthService } from '../../../../services/auth.service';
 import { UserMonthlyDetailService } from '../user-monthly-detail.service';
 import { WorktimeTypeEnum } from '../../../../models/worktime-type.enum';
-import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'ci-user-edit-worktime',
@@ -32,18 +31,16 @@ export class UserEditWorktimeComponent implements OnInit {
   }
 
   dateNumberChange(event: string, work: WorktimeModel) {
-    console.log(event);
-    const array = event.split(':');
-    const tempDate = this.userMonthlyDetailService.getDate(work.timestamp);
-    tempDate.setHours(parseInt(array[0], 10));
-    tempDate.setMinutes(parseInt(array[1], 10));
     if (event.match('^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$')) {
-      work.timestamp = tempDate;
+      const [hours, minutes] = event.split(':');
+      const originalDate = this.userMonthlyDetailService.getDate(work.timestamp);
+      originalDate.setHours(parseInt(hours, 10), parseInt(minutes, 10));
+      work.timestamp = originalDate;
     }
   }
 
   onDeleteWorkTime(index: number, workTime: WorktimeModel) {
-    console.log(index);
+    console.log('index', index, workTime);
     if (workTime.docId != null) {
       this.userMonthlyDetailService.workTimesToUpdate.splice(index, 1);
       this.workTimeToDelete.push(workTime);
@@ -53,33 +50,43 @@ export class UserEditWorktimeComponent implements OnInit {
   }
 
   onAddWorkTime() {
-    this.userTimeService.addEmptyWorkTimeToArray(
-      WorktimeTypeEnum.start,
-      this.userMonthlyDetailService.workTimesToUpdate
-    );
-    this.userTimeService.addEmptyWorkTimeToArray(
-      WorktimeTypeEnum.stop,
-      this.userMonthlyDetailService.workTimesToUpdate
-    );
+    const fromWorktime = {
+      timestamp: new Date(),
+      type: WorktimeTypeEnum.start,
+      uid: null,
+      latitude: null,
+      longitude: null,
+      docId: null,
+    };
+    this.userMonthlyDetailService.workTimesToUpdate.push(fromWorktime);
+    const toWorktime = {
+      timestamp: new Date(),
+      type: WorktimeTypeEnum.stop,
+      uid: null,
+      latitude: null,
+      longitude: null,
+      docId: null,
+    };
+    this.userMonthlyDetailService.workTimesToUpdate.push(toWorktime);
   }
 
   onDataSave() {
-    this.userMonthlyDetailService.workTimesToUpdate.forEach(workTime => {
-      if (workTime.docId != null) {
-        this.userTimeService.updateWorkTime(workTime).subscribe();
-      } else {
-        this.authService.user
-          .pipe(switchMap(({ uid }) => this.userTimeService.addWorkTime(uid, workTime)))
-          .subscribe();
+    this.authService.user.subscribe(async ({uid}) => {
+      for (const workTime of this.userMonthlyDetailService.workTimesToUpdate) {
+        if (workTime.docId != null) {
+          await this.userTimeService.updateWorkTime(workTime).toPromise();
+        } else {
+          await this.userTimeService.addWorkTime(uid, workTime).toPromise();
+        }
       }
+      for (const workTime of this.workTimeToDelete) {
+        await this.userTimeService.deleteWorkTime(workTime.docId).toPromise();
+      }
+      this.router.navigate(['/user/monthly-detail'], { relativeTo: this.route });
     });
-    this.workTimeToDelete.forEach(workTimeRow => {
-      this.userTimeService.deleteWorkTime(workTimeRow.docId).subscribe();
-    });
-    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   onCancelButton() {
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.router.navigate(['/user/monthly-detail'], { relativeTo: this.route });
   }
 }
