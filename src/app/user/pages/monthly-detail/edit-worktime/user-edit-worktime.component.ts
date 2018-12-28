@@ -49,9 +49,9 @@ export class UserEditWorktimeComponent implements OnInit {
     }
   }
 
-  onAddWorkTime() {
+  onAddWorkTime(workTime: WorktimeModel) {
     const fromWorktime = {
-      timestamp: new Date(),
+      timestamp: workTime.timestamp,
       type: WorktimeTypeEnum.start,
       uid: null,
       latitude: null,
@@ -60,7 +60,7 @@ export class UserEditWorktimeComponent implements OnInit {
     };
     this.userMonthlyDetailService.workTimesToUpdate.push(fromWorktime);
     const toWorktime = {
-      timestamp: new Date(),
+      timestamp: workTime.timestamp,
       type: WorktimeTypeEnum.stop,
       uid: null,
       latitude: null,
