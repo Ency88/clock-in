@@ -9,3 +9,8 @@ body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
 }
+
+mat-card.dashboard-card.mat-card {
+  overflow: scroll;
+  position: absolute;
+}
