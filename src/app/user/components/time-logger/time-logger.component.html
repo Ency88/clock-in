@@ -3,8 +3,12 @@
     <div class="date">{{ formattedDate }}</div>
     <div class="target">{{target}}</div>
   </div>
-  <mat-progress-spinner  mode="determinate" [value]="percentageOfDone" diameter="170"
-                        color="{{percentageOfDone === 100 ? 'warn' : (isWorking ? 'primary' : 'accent')}}"></mat-progress-spinner>
+  <div>
+    <mat-progress-spinner  mode="determinate" [value]=100 diameter="170"
+                           class="spinner-placeholder"></mat-progress-spinner>
+    <mat-progress-spinner  mode="determinate" [value]="percentageOfDone" diameter="170"
+                          color="{{percentageOfDone === 100 ? 'warn' : (isWorking ? 'primary' : 'accent')}}"></mat-progress-spinner>
+  </div>
   <div class="done">{{done}}</div>
   <button type="button" color="{{isWorking ? 'primary' : 'accent'}}" mat-raised-button (click)="onWorkStatusChanged()">
     {{ isWorking ? 'Stop' : 'Start' }}

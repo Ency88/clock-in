@@ -17,4 +17,12 @@
       padding-bottom: 16px;
     }
   }
+
+  .spinner-placeholder {
+    position: absolute;
+
+    &.mat-progress-spinner::ng-deep circle {
+      stroke: lightgray;
+    }
+  }
 }
