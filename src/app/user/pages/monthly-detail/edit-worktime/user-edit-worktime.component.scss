@@ -14,12 +14,6 @@
     justify-content: center;
   }
 
-  .dltButton {
-    width: 100px;
-    height: 35px;
-    margin: 20px;
-  }
-
   mat-card-header {
     display: flex;
     justify-content: center;
@@ -29,29 +23,16 @@
   mat-grid-list {
     width: 100%;
     height: 100%;
-    background: pink;
 
     .dashboard-card {
       width: 100%;
       height: 100%;
 
       .dashboard-card-content {
-        //text-align: center;
-
-        //wo
+        padding: 24px;
 
         mat-form-field {
           width: 100%;
-        }
-
-        mat-expansion-panel {
-          .worktime-list {
-            line-height: 20px;
-          }
-
-          button {
-            margin-top: 8px;
-          }
         }
       }
     }

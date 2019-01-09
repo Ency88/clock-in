@@ -23,6 +23,10 @@ export class UserEditWorktimeComponent implements OnInit {
     public userMonthlyDetailService: UserMonthlyDetailService
   ) {}
 
+  get formattedDate() {
+    return (this.date as any).replace(/-/g, '/');
+  }
+
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.date = params['date'];
