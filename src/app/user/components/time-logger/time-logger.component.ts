@@ -70,10 +70,15 @@ export class TimeLoggerComponent {
     } else {
       seconds = this.alreadyDone;
     }
-    const time = new Date(0, 0, 0, 0, 0, 0, 0);
-    time.setSeconds(seconds);
-    text += time.getHours() ? `${time.getHours()}h ` : '';
-    text += time.getMinutes() ? `${time.getMinutes()}min` : '';
+
+    if (seconds) { // working already in progress
+      const time = new Date(0, 0, 0, 0, 0, 0, 0);
+      time.setSeconds(seconds);
+      text += time.getHours() ? `${time.getHours()}h ` : '';
+      text += time.getMinutes() ? `${time.getMinutes()}min` : '';
+    } else {
+      text += '0min';
+    }
     return text;
   }
 
