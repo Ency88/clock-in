@@ -44,7 +44,6 @@ export class UserTimesService {
         .where('timestamp', '>=', fromDate)
         .where('timestamp', '<=', toDate)
         .orderBy('timestamp', 'asc')
-        .get()
     ).pipe(
       catchError(err => throwError(err)),
       map(({ size, docs }) => docs.data().forEach())
@@ -69,7 +68,8 @@ export class UserTimesService {
   /**
    * Toggle user's working state and get user's time already done in seconds
    */
-  public toggleWork(userId: string): Observable<number> {
+  public toggleWork(userId: string, working: WorktimeTypeEnum): Observable<number> {
+    console.log('TOGGLE WORK START');
     return this.locationService.getCurrentPosition().pipe(
       map(({ coords: { latitude, longitude } }) => ({ latitude, longitude })),
       // if error getting position or user has disabled location use zeros
@@ -77,14 +77,13 @@ export class UserTimesService {
         this.updateLocation(userId, false).subscribe();
         return of({ latitude: 0, longitude: 0 });
       }),
-      withLatestFrom(this.isUserWorking(userId)),
-      switchMap(([{ latitude, longitude }, working]) => {
+      map(({ latitude, longitude }) => {
         this.updateLocation(userId, true).subscribe();
         const ref = this.database.collection('worktimes').doc();
         return from(
           ref.set({
             timestamp: new Date(),
-            type: working ? WorktimeTypeEnum.stop : WorktimeTypeEnum.start,
+            type: working,
             uid: userId,
             latitude,
             longitude,

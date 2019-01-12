@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserTimesService } from '../../shared/user-times.service';
 import { AuthService } from '../../../services/auth.service';
+import {WorktimeTypeEnum} from '../../../models/worktime-type.enum';
 
 @Component({
   selector: 'ci-user-dashboard',
@@ -28,7 +29,7 @@ export class UserDashboardComponent implements OnInit {
   public handleChangeWorkStatus(): void {
     this.authService.user.subscribe(({ uid }) => {
       this.loading = true;
-      this.timeService.toggleWork(uid).subscribe(alreadyDone => {
+      this.timeService.toggleWork(uid, !this.isWorking ? WorktimeTypeEnum.start : WorktimeTypeEnum.stop).subscribe(alreadyDone => {
         this.alreadyDone = alreadyDone;
         this.timeService.isUserWorking(uid).subscribe(isWorking => {
           this.isWorking = isWorking;
