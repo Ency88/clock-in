@@ -15,7 +15,7 @@
                 <div class="row" style="justify-content: center;">
                   <span class="col-md-12 centerCol">
                       <mat-form-field>
-                        <input type="tel" matInput placeholder="{{work.type === 'start' ? 'From' : 'To'}}"
+                        <input type="time" matInput placeholder="{{work.type === 'start' ? 'From' : 'To'}}"
                                value="{{work.timestamp ? (userMonthlyDetailService.getDate(work.timestamp) | date: 'HH:mm') : ''}}"
                                (change)="dateNumberChange(input.value,work)"
                                #input>
