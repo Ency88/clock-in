@@ -69,7 +69,6 @@ export class UserTimesService {
    * Toggle user's working state and get user's time already done in seconds
    */
   public toggleWork(userId: string, working: WorktimeTypeEnum): Observable<number> {
-    console.log('TOGGLE WORK START');
     return this.locationService.getCurrentPosition().pipe(
       map(({ coords: { latitude, longitude } }) => ({ latitude, longitude })),
       // if error getting position or user has disabled location use zeros
