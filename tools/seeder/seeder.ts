@@ -38,8 +38,8 @@ export default class Seeder {
     }
     // create worktimes
     for (const worktime of worktimes) {
-      const ref = db.collection('worktimes').doc();
-      ref.set({
+      const ref = await db.collection('worktimes').doc();
+      await ref.set({
         timestamp: worktime.timestamp,
         type: worktime.type,
         uid,
