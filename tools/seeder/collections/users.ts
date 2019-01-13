@@ -1,18 +1,18 @@
 export default [
   {
-    email: 'admin@mock.com',
+    email: 'admin@senacor.com',
     password: '12345678',
   },
   {
-    email: 'manager@mock.com',
+    email: 'manager@senacor.com',
     password: '12345678',
   },
   {
-    email: 'employee@mock.com',
+    email: 'employee@senacor.com',
     password: '12345678',
   },
   {
-    email: 'noworktimes@mock.com',
+    email: 'noworktimes@senacor.com',
     password: '12345678',
   },
 ];
