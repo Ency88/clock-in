@@ -1,0 +1,58 @@
+<div class="grid-container">
+  <mat-grid-list cols="1" rowHeight="fit">
+    <mat-grid-tile>
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            <h1 class="mat-h1">{{ formattedDate }}</h1>
+          </mat-card-title>
+        </mat-card-header>
+        <div>
+          <mat-card-content class="dashboard-card-content">
+            <form (ngSubmit)="onDataSave()" class="work-form">
+            <div *ngIf="workTime;  else noWorkTime" class="worktimes">
+              <span *ngFor="let work of userMonthlyDetailService.workTimesToUpdate; let i = index" class="worktime">
+                <div class="row" style="justify-content: center;">
+                  <span class="col-md-12 centerCol">
+                      <mat-form-field>
+                        <input type="time" matInput placeholder="{{work.type === 'start' ? 'From' : 'To'}}"
+                               value="{{work.timestamp ? (userMonthlyDetailService.getDate(work.timestamp) | date: 'HH:mm') : ''}}"
+                               (change)="dateNumberChange(input.value,work)"
+                               #input>
+                        <mat-icon matSuffix (click)="onDeleteWorkTime(i,work)">delete</mat-icon>
+                      </mat-form-field>
+                  </span>
+                </div>
+                <br>
+              </span>
+            </div>
+            <div class="row">
+              <div class="col-md-12 centerCol">
+                <button mat-mini-fab class="button-add" type="button">
+                  <mat-icon aria-label="Add" (click)="onAddWorkTime(workTime)">add</mat-icon>
+                </button>
+              </div>
+            </div>
+            <ng-template #noWorkTime>
+              <div class="centerCol">No work times found.</div>
+            </ng-template>
+            <div>
+              <br>
+              <div class="row">
+                <div class="col-md-12 centerCol">
+                  <button type="submit" color="primary" mat-raised-button style="margin-right: 20px;">
+                    {{'Save'}}
+                  </button>
+                  <button type="button" color="accent" mat-raised-button (click)="onCancelButton()">
+                    {{'Cancel'}}
+                  </button>
+                </div>
+              </div>
+            </div>
+            </form>
+          </mat-card-content>
+        </div>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserTimesService } from '../../shared/user-times.service';
-import { Observable } from 'rxjs';
-import { WorkingStatus } from '../../components/time-logger/time-logger.component';
+import { AuthService } from '../../../services/auth.service';
+import {WorktimeTypeEnum} from '../../../models/worktime-type.enum';
 
 @Component({
   selector: 'ci-user-dashboard',
@@ -9,20 +9,33 @@ import { WorkingStatus } from '../../components/time-logger/time-logger.componen
   styleUrls: ['./user-dashboard.component.scss'],
 })
 export class UserDashboardComponent implements OnInit {
-  public isUserWorking: Observable<boolean>;
-  public userTarget: Observable<number>;
-  public alreadyDone: Observable<number>;
+  public isWorking: boolean;
+  public dayTarget: number;
+  public alreadyDone: number;
+  public loading = false;
 
-  constructor(private timeService: UserTimesService) {}
+  constructor(private timeService: UserTimesService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.isUserWorking = this.timeService.isUserWorking('userId');
-    this.userTarget = this.timeService.getUserDayTarget('userId');
+    this.authService.user.subscribe(({ uid }) => {
+      this.timeService.getUserDayTarget(uid).subscribe(dayTarget => (this.dayTarget = dayTarget));
+      this.timeService
+        .getAlreadyDone(uid)
+        .subscribe(alreadyDone => (this.alreadyDone = alreadyDone));
+      this.timeService.isUserWorking(uid).subscribe(isWorking => (this.isWorking = isWorking));
+    });
   }
 
   public handleChangeWorkStatus(): void {
-    this.alreadyDone = this.timeService.toggleWork('userId');
-    this.isUserWorking = this.timeService.isUserWorking('userId');
-    this.userTarget = this.timeService.getUserDayTarget('userId');
+    this.authService.user.subscribe(({ uid }) => {
+      this.loading = true;
+      this.timeService.toggleWork(uid, !this.isWorking ? WorktimeTypeEnum.start : WorktimeTypeEnum.stop).subscribe(alreadyDone => {
+        this.alreadyDone = alreadyDone;
+        this.timeService.isUserWorking(uid).subscribe(isWorking => {
+          this.isWorking = isWorking;
+          this.loading = false;
+        });
+      });
+    });
   }
 }

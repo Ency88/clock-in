@@ -11,6 +11,9 @@ import {
   MatSidenavModule,
   MatSnackBarModule,
   MatToolbarModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatDialogModule,
 } from '@angular/material';
 import { MatExpansionModule } from '@angular/material/expansion';
 
@@ -28,6 +31,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDialogModule,
   ],
   exports: [
     MatToolbarModule,
@@ -42,6 +48,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDialogModule,
   ],
 })
 export class MaterialModule {}

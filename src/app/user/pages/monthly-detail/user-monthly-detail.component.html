@@ -1,5 +1,5 @@
 <div class="grid-container">
-  <mat-grid-list cols="1" rowHeight="450px">
+  <mat-grid-list cols="1" rowHeight="fit">
     <mat-grid-tile>
       <mat-card class="dashboard-card">
         <mat-card-header>
@@ -7,38 +7,54 @@
             <h1 class="mat-h1">Monthly Detail</h1>
           </mat-card-title>
         </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div *ngFor="let attendance of attendances | async">
-            <mat-accordion>
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-description>
-                    {{headerText(attendance)}}
-                    {{calculateTotalTime(attendance.timeRecords)}}
-                  </mat-panel-description>
-                </mat-expansion-panel-header>
-                <div *ngFor="let timeRecord of attendance.timeRecords">
-                  <div *ngIf="timeRecord.type === workType">
-                    <div class="row">
-                      <div class="col-md-4 col-sm-4 col-xs-4 timeRecordColumn">FROM:
-                        {{timeRecord.from.getHours()}}:{{timeRecord.from.getMinutes()}}
-                      </div>
-                      <div class="col-md-4 col-sm-4 col-xs-4 timeRecordColumn">TO:
-                        {{timeRecord.to.getHours()}}:{{timeRecord.to.getMinutes()}}
-                      </div>
-                      <div class="col-md-4 col-sm-4 col-xs-4">
-                        <button mat-button color="primary">Edit</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </mat-expansion-panel>
-              <mat-expansion-panel (opened)="panelOpenState = true"
-                                   (closed)="panelOpenState = false">
-              </mat-expansion-panel>
-            </mat-accordion>
+        <div *ngIf="showSpinner; else dashboardContent">
+          <div class="loader">
+            <mat-spinner></mat-spinner>
           </div>
-        </mat-card-content>
+        </div>
+        <ng-template #dashboardContent>
+          <mat-card-content class="dashboard-card-content">
+            <mat-form-field>
+              <input matInput [matDatepickerFilter]="myFilter" [max]="myDate" [matDatepicker]="dp" placeholder="Month and Year" [formControl]="date">
+              <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+              <mat-datepicker #dp
+                              startView="multi-year"
+                              (yearSelected)="chosenYearHandler($event)"
+                              (monthSelected)="chosenMonthHandler($event, dp)"
+                              panelClass="example-month-picker"></mat-datepicker>
+            </mat-form-field>
+            <div *ngFor="let worktime of groupedWorkTimes | keyvalue">
+              <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-description>
+                      {{headerText(worktime.value)}}
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <div class="worktime-list">
+                    <span *ngFor="let work of userMonthlyDetailService.getKeyValuePairs(headerText(worktime.value)); let i = index">
+                      {{userMonthlyDetailService.getDateFromNumberTimestamp(work.timestamp)}}
+                      {{!(i % 2)? ' - ' : ''}}
+                      <br *ngIf="i % 2">
+                    </span>
+                  </div>
+                  <button type="button" color="primary" mat-raised-button (click)="onEditTheRecord(worktime.value)">
+                    {{'Edit' }}
+                  </button>
+                </mat-expansion-panel>
+                <mat-expansion-panel (opened)="panelOpenState = true"
+                                     (closed)="panelOpenState = false">
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+            <div>
+              <br>
+              <button type="button" color="{{monthlyTargetReached ? 'primary' : 'accent'}}" mat-raised-button (click)="onSignTheMonth()">
+                {{'Sign' }}
+              </button>
+            </div>
+          </mat-card-content>
+        </ng-template>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>

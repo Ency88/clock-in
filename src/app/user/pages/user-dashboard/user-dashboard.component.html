@@ -1,17 +1,15 @@
-<div class="container">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title class="header">
-        <h2>Log your time</h2>
-      </mat-card-title>
-    </mat-card-header>
+<mat-card>
+  <ng-container *ngIf="!loading; else isLoading">
     <mat-card-content>
       <ci-time-logger
-        [dayTarget]="userTarget | async"
-        [isWorking]="isUserWorking | async"
-        [alreadyDone]="alreadyDone | async"
+        [dayTarget]="dayTarget"
+        [isWorking]="isWorking"
+        [alreadyDone]="alreadyDone"
         (workTrackingChanged)="handleChangeWorkStatus()">
       </ci-time-logger>
     </mat-card-content>
-  </mat-card>
-</div>
+  </ng-container>
+  <ng-template #isLoading>
+    <mat-spinner></mat-spinner>
+  </ng-template>
+</mat-card>

@@ -4,7 +4,7 @@ import * as express from 'express';
 import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
 import UserRecord = admin.auth.UserRecord;
-import { UserModel } from '../../src/app/services/models/user.model';
+import { UserModel } from '../../src/app/models/user.model';
 
 admin.initializeApp();
 
@@ -12,6 +12,9 @@ export const addUserToFirestoreOnCreate = functions.auth.user().onCreate((user: 
   const userData: UserModel = {
     uid: user.uid,
     email: user.email,
+    dayTarget: 28800,
+    monthTarget: 576000,
+    isLocation: false,
   };
 
   admin
