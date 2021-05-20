@@ -39,7 +39,7 @@
     "core-js": "^2.5.4",
     "firebase": "^5.5.7",
     "flexboxgrid": "^6.3.1",
-    "html-pdf": "^2.2.0",
+    "html-pdf": "^3.0.1",
     "jspdf": "^1.4.1",
     "moment": "^2.22.2",
     "mustache": "^3.0.0",
